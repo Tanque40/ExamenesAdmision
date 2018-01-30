@@ -75,10 +75,10 @@ $(document).ready(function(){
                 for (var a = 0; a < 4; a++) {
                     opc.push(aleatorio2(4, 7));
                 }
-                var respuesta1 = '<div class="tab espacio-arriba"><p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_a" value="'+data[z][opc[0]]+'" required/><label for="respuesta_'+id_general[i]+(k+1)+z+'_a">'+data[z][opc[0]]+'</label></p><br>';
-                var respuesta3 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_c" value="'+data[z][opc[2]]+'" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_c">'+data[z][opc[2]]+'</label></p><br>';
-                var respuesta2 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_b" value="'+data[z][opc[1]]+'" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_b">'+data[z][opc[1]]+'</label></p><br>';
-                var respuesta4 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_d" value="'+data[z][opc[3]]+'" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_d">'+data[z][opc[3]]+'</label></p></div>';
+                var respuesta1 = '<div class="tab espacio-arriba"><p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_a" value="'+data[z][opc[0]]+'_a" required/><label for="respuesta_'+id_general[i]+(k+1)+z+'_a">a) '+data[z][opc[0]]+'</label></p><br>';
+                var respuesta3 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_c" value="'+data[z][opc[2]]+'_c" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_c">c) '+data[z][opc[2]]+'</label></p><br>';
+                var respuesta2 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_b" value="'+data[z][opc[1]]+'_b" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_b">b) '+data[z][opc[1]]+'</label></p><br>';
+                var respuesta4 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_d" value="'+data[z][opc[3]]+'_d" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_d">d) '+data[z][opc[3]]+'</label></p></div>';
                 $("#"+id_general[i]).append('<div class="espacio-arriba" id="test'+i+'-swipe-'+(k+1)+'"><div class="input-field hide"><input type="text" name="folio_pregunta_'+z+'" value="'+data[z][0]+'"></div><p>Pregunta '+(z+1)+': '+data[z][3]+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4+'</div>');
                 $('ul.tabs').tabs();
                 z+=1;

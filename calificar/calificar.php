@@ -1,3 +1,7 @@
+<?php
+    $link = mysqli_connect("localhost", "root", "contraseña", "phpmyadmin");
+    mysqli_query($link, "SET NAMES 'utf8'");
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +14,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-
+    <?php
+    /* Comprobamos la conexión*/
+    if (mysqli_connect_errno()):?>
+        <script type="text/javascript">
+           <?php $error = mysqli_connect_error(); ?>
+           window.alert("<?php echo $error; ?>");
+        </script>
+    <?php endif; ?>
+        
 </body>
 </html>
