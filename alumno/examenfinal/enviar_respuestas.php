@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="../images/logo.png">
+	<title>Evaluación</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="css/estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+</head>
+<body>
 <?php
 $folio_preguntas = array();
 $folios_respuestas = array();
@@ -33,10 +46,18 @@ $folios_respuestas[13] = $_POST['geografia_exa1'];
 $folio_preguntas[14] = $_POST['folio_pregunta_14'];
 $folios_respuestas[14] = $_POST['geografia_exa2'];
 
+$respuestas = array();
+$opcion = array();
+$combinaciones = array("_a", "_b", "_c", "_d");
+/*55234776*/
 for ($i=0; $i < 15; $i++) {
-    printf("%s    %s   <br>", $folio_preguntas[$i], $folios_respuestas[$i]);
+    for($k = 0; $k < strlen($folios_respuestas[$i]); $k++){
+        if($folios_respuestas[$i][$k] == '_'){
+            $opcion[$i] = $folios_respuestas[$i][$k+1];
+            $respuestas[$i] = str_replace($combinaciones, "", $folios_respuestas[$i]);
+        }
+    }
 }
-
 
 $link = mysqli_connect("localhost", "phpmyadmin", "Bruno0400", "phpmyadmin");
 mysqli_query($link, "SET NAMES 'utf8'");
@@ -48,15 +69,18 @@ if (mysqli_connect_errno()) {
 }
 
 for ($i=0; $i < 15; $i++) {
-    $prueba = "INSERT INTO Respuestas_alumno VALUES ('$folio_alumno','$folio_preguntas[$i]','$folios_respuestas[$i]')";
+    $prueba = "INSERT INTO Respuestas_alumno VALUES ('$folio_alumno','$folio_preguntas[$i]', '$opcion[$i]','$respuestas[$i]')";
     if(!mysqli_query($link, $prueba)){
     printf("Error en la pregunta %d \n Errormessage: %s\n", ($i+1),mysqli_error($link));
     }
-    else{
-        printf("Enviada la respuesta %s <br>", $i+1);
-    }
 }
 mysqli_close($link);
-printf("Se le redireccinara en un momento, ha terminado la evaluación");
-header("refresh: 5.0; url=../../index.html");
 ?>
+<script type="text/javascript">
+    swal("Buen trabajo!", "Haz completado la prueba, en un momento se te redireccionará", "success");
+</script>
+<?php
+header("refresh: 5.0; url=../../index.html");
+ ?>
+</body>
+</html>
