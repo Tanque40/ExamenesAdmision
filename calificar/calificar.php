@@ -41,19 +41,26 @@
                         <?php
                         $consulta_BD = "SELECT * FROM Respuestas_alumno";
                         if($respuesta = mysqli_multi_query($link, $consulta_BD)):?>
-                            <?php $numero_de_filas = mysqli_num_rows($respuesta);
-                            $resul = mysqli_use_result($link);
-                            for ($i=0; $i < $numero_de_filas; $i++):?>
-                                <tr>
-                                    <?php $z = 0;
-                                    while(($fila = mysqli_fetch_row($resul)) && ($z < 3) ):?>
-                                        <th><?php echo $fila[$z];?></th>
-                                        <?php $z++ ; ?>
-                                    <?php endwhile; ?>
-                                </tr>
-                            <?php endfor; ?>
-                            <?php mysqli_free_result($resul);
-                            mysqli_close($link);?>
+                            <?php if ($resul = mysqli_use_result($link)): ?>
+                                <?php while($fila = mysqli_fetch_row($resul)):?>
+                                    <tr>
+                                        <?php for ($i=0; $i < 3 ; $i++):?>
+                                            <?php if ($i == 2): ?>
+                                                <?php $busqueda_de_respuesta = "SELECT Respuesta_correcta FROM Materias where Id_pregunta = '$fila[1]'";
+                                                mysqli_query($link, $busqueda_de_respuesta);
+                                                $verificar_respuesta = mysqli_use_result($link);
+                                                $res = mysqli_fetch_row($verificar_respuesta);?>
+                                                <td><?php echo $res[0]; ?></td>
+                                                <?php mysqli_free_result($verificar_respuesta); ?>
+                                            <?php else: ?>
+                                                <td><?php echo $fila[$i] ?></td>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php endif; ?>
+                            <?php mysqli_free_result($resul); ?>
+                            <?php mysqli_close($link);?>
                         <?php else: ?>
                             <?php $error = mysqli_error($link); ?>
                             <script type="text/javascript">
