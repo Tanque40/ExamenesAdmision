@@ -70,9 +70,20 @@
                         <?php for ($i=0; $i < sizeof($respuestas); $i++):?>
                             <tr>
                                 <?php for ($k=0; $k < 4; $k++):?>
-                                    <?php if ($k == 3): ?>
-                                        <td><?php echo $respuestas[$i][$k]; ?></td>
-                                    <?php elseif ($k == 4): ?>
+                                    <?php if ($k == 2): ?>
+                                        <?php for ($j=0; $j < sizeof($respuestas_c); $j++):?>
+                                            <?php if ($respuestas[$i][1] == $respuestas_c[$j][0]): ?>
+                                                <?php if ($respuestas[$i][2] == $respuestas_c[$j][1]): ?>
+                                                    <td>Correcta</td>
+                                                    <?php $puntaje = 1; ?>
+                                                <?php else: ?>
+                                                    <td>Incorrecta</td>
+                                                    <?php $puntaje = 0; ?>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    <?php elseif ($k == 3): ?>
+                                        <td><?php echo $puntaje; ?></td>
                                     <?php else: ?>
                                         <td><?php echo $respuestas[$i][$k]; ?></td>
                                     <?php endif; ?>
