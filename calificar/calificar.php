@@ -21,10 +21,38 @@
            <?php $error = mysqli_connect_error(); ?>
            window.alert("<?php echo $error; ?>, SE TE REDIRECCIONARÁ EN UN MOMENTO");
         </script>
-
     <?php
     header("refresh: 5.0; url=../index.html");
     endif; ?>
+    <?php
+    $respuestas = array();
+    $respuestas_c = array();
+    $consulta_BD = "SELECT * FROM Respuestas_alumno;";
+    $consulta_BD .= "SELECT Id_pregunta, Respuesta_correcta FROM Materias";
+    $respuestas_alunmo0_correcta1 = 0;
+    if(mysqli_multi_query($link, $consulta_BD)):?>
+        <?php do{ ?>
+            <?php if($resul = mysqli_use_result($link)): ?>
+                <?php while($fila = mysqli_fetch_row($resul)):?>
+                    <?php if($respuestas_alunmo0_correcta1 == 0): ?>
+                        <?php array_push($respuestas, array("$fila[0]", "$fila[1]", "$fila[3]", "$fila[2]")); ?>
+                    <?php else: ?>
+                        <?php array_push($respuestas_c, array("$fila[0]", "$fila[1]")); ?>
+                    <?php endif; ?>
+                <?php endwhile; ?>
+                <?php mysqli_free_result($resul); ?>
+            <?php endif; ?>
+            <?php if(mysqli_more_results($link)): ?>
+                <?php $respuestas_alunmo0_correcta1 += 1; ?>
+            <?php endif; ?>
+        <?php }while(mysqli_next_result($link)); ?>
+    <?php else: ?>
+        <?php $error = mysqli_error($link); ?>
+        <script type="text/javascript">
+            window.alert("<?php echo $error; ?>, SE TE REDIRECCIONARÁ EN UN MOMENTO");
+        </script>
+        <?php header("refresh: 6.0; url=../index.html"); ?>
+    <?php endif; ?>
     <div class="container">
         <div class="card white">
             <div class="card-content black-text">
@@ -35,39 +63,22 @@
                             <th>Folio de alumno</th>
                             <th>Folio de pregunta calificada</th>
                             <th>Correcta / Incorrecta</th>
+                            <th>Puntos</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $consulta_BD = "SELECT * FROM Respuestas_alumno";
-                        if($respuesta = mysqli_multi_query($link, $consulta_BD)):?>
-                            <?php if ($resul = mysqli_use_result($link)): ?>
-                                <?php while($fila = mysqli_fetch_row($resul)):?>
-                                    <tr>
-                                        <?php for ($i=0; $i < 3 ; $i++):?>
-                                            <?php if ($i == 2): ?>
-                                                <?php $busqueda_de_respuesta = "SELECT Respuesta_correcta FROM Materias where Id_pregunta = '$fila[1]'";
-                                                mysqli_query($link, $busqueda_de_respuesta);
-                                                $verificar_respuesta = mysqli_use_result($link);
-                                                $res = mysqli_fetch_row($verificar_respuesta);?>
-                                                <td><?php echo $res[0]; ?></td>
-                                                <?php mysqli_free_result($verificar_respuesta); ?>
-                                            <?php else: ?>
-                                                <td><?php echo $fila[$i] ?></td>
-                                            <?php endif; ?>
-                                        <?php endfor; ?>
-                                    </tr>
-                                <?php endwhile; ?>
-                            <?php endif; ?>
-                            <?php mysqli_free_result($resul); ?>
-                            <?php mysqli_close($link);?>
-                        <?php else: ?>
-                            <?php $error = mysqli_error($link); ?>
-                            <script type="text/javascript">
-                                window.alert("<?php echo $error; ?>, SE TE REDIRECCIONARÁ EN UN MOMENTO");
-                            </script>
-                            <?php header("refresh: 6.0; url=../index.html"); ?>
-                        <?php endif; ?>
+                        <?php for ($i=0; $i < sizeof($respuestas); $i++):?>
+                            <tr>
+                                <?php for ($k=0; $k < 4; $k++):?>
+                                    <?php if ($k == 3): ?>
+                                        <td><?php echo $respuestas[$i][$k]; ?></td>
+                                    <?php elseif ($k == 4): ?>
+                                    <?php else: ?>
+                                        <td><?php echo $respuestas[$i][$k]; ?></td>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            </tr>
+                        <?php endfor; ?>
                     </tbody>
                 </table>
                 <div class="card-action">
@@ -84,6 +95,6 @@
             </div>
         </div>
     </div>
-
+    <?php mysqli_close($link);?>
 </body>
 </html>
