@@ -57,6 +57,7 @@
         <div class="card white">
             <div class="card-content black-text">
                 <span class="card-title">Proceso de calificado (Al finalizar, dar click en el boton "Aceptar")</span>
+                <form class="" action="envio.php" method="post">
                 <table>
                     <thead>
                         <tr>
@@ -75,17 +76,26 @@
                                             <?php if ($respuestas[$i][1] == $respuestas_c[$j][0]): ?>
                                                 <?php if ($respuestas[$i][2] == $respuestas_c[$j][1]): ?>
                                                     <td>Correcta</td>
-                                                    <?php $puntaje = 1; ?>
+                                                    <?php $puntaje = 1;
+                                                    $tipo = "Correcta";?>
+                                                    <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo $respuestas[$i][2]; ?>" class="hide">
+                                                    <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k+1; ?>]" value="<?php echo $respuestas_c[$j][1]; ?>" class="hide">
                                                 <?php else: ?>
                                                     <td>Incorrecta</td>
-                                                    <?php $puntaje = 0; ?>
+                                                    <?php $puntaje = 0;
+                                                    $tipo = "Incorrecta";?>
+                                                    <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo $respuestas[$i][2]; ?>" class="hide">
+                                                    <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k+1; ?>]" value="<?php echo $respuestas_c[$j][1]; ?>" class="hide">
                                                 <?php endif; ?>
+                                                <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k+2; ?>]" value="<?php echo $tipo; ?>" class="hide">
                                             <?php endif; ?>
                                         <?php endfor; ?>
                                     <?php elseif ($k == 3): ?>
                                         <td><?php echo $puntaje; ?></td>
+                                        <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k+2; ?>]" value="<?php echo $puntaje; ?>" class="hide">
                                     <?php else: ?>
                                         <td><?php echo $respuestas[$i][$k]; ?></td>
+                                        <input type="text" name="enviar_calificacion[<?php echo $i; ?>][<?php echo $k; ?>]" value="<?php echo $respuestas[$i][$k]; ?>" class="hide">
                                     <?php endif; ?>
                                 <?php endfor; ?>
                             </tr>
@@ -103,6 +113,7 @@
                         </center>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
