@@ -1,48 +1,19 @@
--- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
---
--- Servidor: localhost
--- Tiempo de generación: 28-11-2017 a las 08:03:33
--- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
--- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Base de datos: `phpmyadmin`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Administracion`
---
 
 CREATE TABLE `Administracion` (
   `Usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Password` varchar(15) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Administracion`
---
-
 INSERT INTO `Administracion` (`Usuario`, `Password`) VALUES
 ('Administrador', 'BACPonra2018');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Alumnos`
---
 
 CREATE TABLE `Alumnos` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -51,39 +22,35 @@ CREATE TABLE `Alumnos` (
   `Apellido_M` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Alumnos`
---
-
 INSERT INTO `Alumnos` (`Folio`, `Nombre`, `Apellido_P`, `Apellido_M`) VALUES
 ('0040', 'Bruno', 'Vitte', 'San Juan'),
 ('260800', 'Paulina', 'Fuenlabrada', 'Velazquez');
 
--- --------------------------------------------------------
+CREATE TABLE `calificacion` (
+  `folio_alumno` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+  `id_pregunta` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+  `respuesta_dada` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
+  `respuesta_correcta` varchar(255) COLLATE utf8_spanish2_ci NOT NULL,
+  `correcta/incorrecta` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `puntuacion` varchar(10) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Estructura de tabla para la tabla `Calificaciones`
---
-
-CREATE TABLE `Calificaciones` (
-  `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `Calificacion_mat1` float NOT NULL,
-  `Calificacion_mat2` float NOT NULL,
-  `Calificacion_mat3` float NOT NULL,
-  `Calificacion_mat4` float NOT NULL,
-  `Calificacion_mat5` float NOT NULL,
-  `Calificacion_mat6` float NOT NULL,
-  `Calificacion_mat7` float NOT NULL,
-  `Calificacion_mat8` float NOT NULL,
-  `Calificacion_mat9` float NOT NULL,
-  `Calificacion_mat10` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Direccion`
---
+INSERT INTO `calificacion` (`folio_alumno`, `id_pregunta`, `respuesta_dada`, `respuesta_correcta`, `correcta/incorrecta`, `puntuacion`) VALUES
+('0040', '1001', 'Participar con orden en una comunidad.', 'Participar con orden en una comunidad.', 'Correcta', '1'),
+('0040', '1004', 'Informativos', 'Informativos', 'Correcta', '1'),
+('0040', '1005', 'Se altera el significado real de este', 'Se altera el significado real de este', 'Correcta', '1'),
+('0040', '2005', '24', '24', 'Correcta', '1'),
+('0040', '2002', '5n + 1', '5n + 1', 'Correcta', '1'),
+('0040', '2004', 'Sus lados correspondientes tienen la misma medida', 'Sus lados correspondientes tienen la misma medida', 'Correcta', '1'),
+('0040', '3001', 'Ciencia', 'Ciencia', 'Correcta', '1'),
+('0040', '3005', 'Tecnología', 'Tecnología', 'Correcta', '1'),
+('0040', '3004', 'La biodiversidad', 'La ecología', 'Incorrecta', '0'),
+('0040', '4002', 'Johannes Gutenberg', 'Johannes Gutenberg', 'Correcta', '1'),
+('0040', '4004', 'La Inquisición', 'La Inquisición', 'Correcta', '1'),
+('0040', '4003', 'Capitalismo', 'Capitalismo', 'Correcta', '1'),
+('0040', '5003', 'Territorio', 'Territorio', 'Correcta', '1'),
+('0040', '5001', 'Estudia a los seres vivos, su ambiente, distribución y diversidad', 'Se encarga de estudiar la relación existente entre los elementos físicos, biológicos y humanos, y la manera en que influyen en el espacio geográfico', 'Incorrecta', '0'),
+('0040', '5004', 'Hábitat', 'Región', 'Incorrecta', '0');
 
 CREATE TABLE `Direccion` (
   `Folio` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
@@ -94,31 +61,15 @@ CREATE TABLE `Direccion` (
   `Estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Direccion`
---
-
 INSERT INTO `Direccion` (`Folio`, `Calle`, `Numero`, `Colonia`, `Delegacion/muncipio`, `Estado`) VALUES
 ('0040', 'Amapola', '415', 'Gustavo Díaz Ordaz', 'Ecatepec', 'Estado de México'),
 ('260800', 'Natal', '627', 'Lindavista', 'GAM', 'CDMX');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Examenes`
---
 
 CREATE TABLE `Examenes` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `Id_materia` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `Id_pregunta` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Materias`
---
 
 CREATE TABLE `Materias` (
   `Id_pregunta` int(5) NOT NULL,
@@ -131,17 +82,12 @@ CREATE TABLE `Materias` (
   `Respuesta_inc_3` varchar(200) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Materias`
---
-
 INSERT INTO `Materias` (`Id_pregunta`, `Id_materia`, `Materia`, `Pregunta`, `Respuesta_correcta`, `Respuesta_inc_1`, `Respuesta_inc_2`, `Respuesta_inc_3`) VALUES
 (1001, '1000', 'Español', 'Un reglamento nos sirve para que podamos…', 'Participar con orden en una comunidad.', 'Conocer los verbos imperativos', 'Evitar el contacto entre seres humanos', 'Organizar contenido del libro'),
 (1002, '1000', 'Español', 'Una de las principales características de la leyenda que es un texto…', 'Anónimo y de tradición oral.', 'Que habla sobre dioses y héroes', 'Reconocida y de tradición escrita.', 'Habla sobre las realidades de nuestra comunidad.'),
 (1003, '1000', 'Español', '________________Se le fueron sumando acontecimientos reales y fantásticos.', 'A la leyenda', 'Al mito', 'A la costumbre', 'Al reglamento'),
 (1004, '1000', 'Español', 'Las explicaciones objetivas son características de los textos…', 'Informativos', 'Literarios', 'Persuasivos', 'Poéticos'),
 (1005, '1000', 'Español', 'Si se elimina la idea principal de un párrafo este…', 'Se altera el significado real de este', 'Se entiende casi igual', 'Las ideas secundarias suplen a las ideas principales', 'Las ideas complementarias funcionan como ideas principales'),
-(2001, '2000', 'Matemáticas', '¿Cuál es el valor posicional del 7 en el número 8 174 326?', '70000', '7', '70', '74326'),
 (2002, '2000', 'Matemáticas', 'Para la sucesión 6, 11, 16, 21, 26, 31, 36, 41… subraya la expresiónalgebraica que te permite encontrar el término que está en el lugar n.', '5n + 1', 'n - 5', 'n + 5', 'n'),
 (2003, '2000', 'Matemáticas', 'La expresión algebraica que permite encontrar cualquier número de lasucesión 2, 5, 8, 11, 14… es 3n − 1, donde n indica el lugar del número dentrode la sucesión. ¿Cuál es el número que ocupa el lugar 100 en la sucesión?', '299', '289', '301', '279'),
 (2004, '2000', 'Matemáticas', '¿Cuál de las siguientes afirmaciones es verdadera al hablar de dos figurassimétricas con respecto a un eje?', 'Sus lados correspondientes tienen la misma medida', 'Sus lados correspondientes tienen diferente medida', 'Sus ángulos correspondientes tienen diferente medida', 'Sus vértices correspondientes no equidistan del eje de simetría'),
@@ -162,24 +108,29 @@ INSERT INTO `Materias` (`Id_pregunta`, `Id_materia`, `Materia`, `Pregunta`, `Res
 (5004, '5000', 'Geografía', 'Es el conjunto de formas que, en un momento dado, expresa las herencias de las relaciones entre hombre y naturaleza; pueden ser bosques, desiertos, pueblos y ciudades, entre otras.', 'Región', 'Paisaje', 'Hábitat', 'Lugar'),
 (5005, '5000', 'Geografía', 'Muestra el número de personas de una población que varía periódicamente por los nacimientos y las defunciones:', 'La tasa de crecimiento demográfico', 'La tasa de migración', 'La tasa de natalidad', 'La distribución de la población');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Respuestas_alumno`
---
-
 CREATE TABLE `Respuestas_alumno` (
-  `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `Materia` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `Respuesta_dada` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `Puntaje` float NOT NULL
+  `folio_alumno` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `folio_pregunta` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `respuesta_letras` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
+  `Respuesta_dada` varchar(200) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Tutor`
---
+INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+('0040', '1001', 'd', 'Participar con orden en una comunidad.'),
+('0040', '1004', 'a', 'Informativos'),
+('0040', '1005', 'a', 'Se altera el significado real de este'),
+('0040', '2005', 'd', '24'),
+('0040', '2002', 'c', '5n + 1'),
+('0040', '2004', 'c', 'Sus lados correspondientes tienen la misma medida'),
+('0040', '3001', 'a', 'Ciencia'),
+('0040', '3005', 'a', 'Tecnología'),
+('0040', '3004', 'a', 'La biodiversidad'),
+('0040', '4002', 'b', 'Johannes Gutenberg'),
+('0040', '4004', 'a', 'La Inquisición'),
+('0040', '4003', 'b', 'Capitalismo'),
+('0040', '5003', 'b', 'Territorio'),
+('0040', '5001', 'a', 'Estudia a los seres vivos, su ambiente, distribución y diversidad'),
+('0040', '5004', 'a', 'Hábitat');
 
 CREATE TABLE `Tutor` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
@@ -191,66 +142,29 @@ CREATE TABLE `Tutor` (
   `Telefono_celular` varchar(10) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `Tutor`
---
-
 INSERT INTO `Tutor` (`Folio`, `Nombre_tutor`, `Apellido_P_tutor`, `Apellido_M_tutor`, `Correo`, `Telefono_casa`, `Telefono_celular`) VALUES
 ('0040', 'Alberto', 'Vitte', 'de la Rosa', 'tanque_250@hotmail.com', '55699494', '5559698752'),
 ('260800', 'Eugenia', 'Fuenlabrada', 'Velázquez', 'paulinafuenlabrada@gmail.com', '44355380', '5548066360');
 
---
--- Índices para tablas volcadas
---
 
---
--- Indices de la tabla `Administracion`
---
 ALTER TABLE `Administracion`
   ADD PRIMARY KEY (`Usuario`);
 
---
--- Indices de la tabla `Alumnos`
---
 ALTER TABLE `Alumnos`
   ADD PRIMARY KEY (`Folio`);
 
---
--- Indices de la tabla `Calificaciones`
---
-ALTER TABLE `Calificaciones`
-  ADD PRIMARY KEY (`Folio`);
-
---
--- Indices de la tabla `Direccion`
---
 ALTER TABLE `Direccion`
   ADD PRIMARY KEY (`Folio`);
 
---
--- Indices de la tabla `Examenes`
---
 ALTER TABLE `Examenes`
   ADD PRIMARY KEY (`Folio`),
   ADD KEY `Id_materia` (`Id_materia`),
   ADD KEY `Id_pregunta` (`Id_pregunta`);
 
---
--- Indices de la tabla `Materias`
---
 ALTER TABLE `Materias`
   ADD PRIMARY KEY (`Id_pregunta`),
   ADD KEY `Id_materia` (`Id_materia`);
 
---
--- Indices de la tabla `Respuestas_alumno`
---
-ALTER TABLE `Respuestas_alumno`
-  ADD PRIMARY KEY (`Folio`);
-
---
--- Indices de la tabla `Tutor`
---
 ALTER TABLE `Tutor`
   ADD PRIMARY KEY (`Folio`);
 
