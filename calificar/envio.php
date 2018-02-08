@@ -1,6 +1,4 @@
-<?php
-    $link = mysqli_connect("localhost", "root", "bvitte18", "phpmyadmin");
-    mysqli_query($link, "SET NAMES 'utf8'"); ?>
+<?php include '../conexion.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

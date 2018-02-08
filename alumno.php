@@ -14,14 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.3.2/sweetalert2.js"></script>
 <?php
     $opc = True;
-    $link = mysqli_connect("localhost", "root", "bvitte18", "phpmyadmin");
-    mysqli_query($link, "SET NAMES 'utf8'");
+    include 'conexion.php';
     /* comprobar la conexión */
     if (mysqli_connect_errno()) {
         printf("Falló la conexión: %s <br>", mysqli_connect_error());
         exit();
     }
-    $usuario=$_POST['usr_alumno'];
     $password=$_POST['alum_password'];
     $verifica=$_POST['verify'];
     $prueba = "SELECT * FROM Alumnos where '$password' = Folio";

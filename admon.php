@@ -1,5 +1,5 @@
 <?php
- $link = mysqli_connect("localhost", "phpmyadmin", "Bruno0400", "phpmyadmin");
+include 'conexion.php';
 
 /* comprobar la conexión */
 if (mysqli_connect_errno()) {
@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
             $fila = mysqli_fetch_row($resul);
             echo $fila[0];
             echo $fila[1];
-            mysqli_free_result($resul); 
+            mysqli_free_result($resul);
           /*header( "refresh: 0.1;url=administrador/index.html" );*/
         }
 

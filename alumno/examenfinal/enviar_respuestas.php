@@ -59,8 +59,7 @@ for ($i=0; $i < 15; $i++) {
     }
 }
 
-$link = mysqli_connect("localhost", "phpmyadmin", "Bruno0400", "phpmyadmin");
-mysqli_query($link, "SET NAMES 'utf8'");
+include '../../conexion.php';
 
 
 if (mysqli_connect_errno()) {
