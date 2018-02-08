@@ -19,12 +19,13 @@ CREATE TABLE `Alumnos` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Apellido_P` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `Apellido_M` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+  `Apellido_M` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `grupo` varchar(4) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `Alumnos` (`Folio`, `Nombre`, `Apellido_P`, `Apellido_M`) VALUES
-('0040', 'Bruno', 'Vitte', 'San Juan'),
-('260800', 'Paulina', 'Fuenlabrada', 'Velazquez');
+INSERT INTO `Alumnos` (`Folio`, `Nombre`, `Apellido_P`, `Apellido_M`, `grupo`) VALUES
+('0040', 'Bruno', 'Vitte', 'San Juan', ''),
+('260800', 'Paulina', 'Fuenlabrada', 'Velazquez', '');
 
 CREATE TABLE `calificacion` (
   `folio_alumno` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
