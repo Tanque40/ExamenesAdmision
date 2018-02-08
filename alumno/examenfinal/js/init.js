@@ -88,9 +88,8 @@ $(document).ready(function(){
         $("#ciencias_exa").hide();
         $("#historia_exa").hide();
         $("#geografia_exa").hide();
-        $("#espanol_exa").fadeIn(5000);
+        $("#espanol_exa").show();
         $("#titulo").text("Materia: Español");
-        $('ul.tabs').tabs();
     }, "json" );
 });
 $("#espanol").click(function(){
