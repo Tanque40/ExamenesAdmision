@@ -9,11 +9,11 @@ INSERT INTO Materias VALUES('1004', '1000', 'Español', 'Las explicaciones objet
 INSERT INTO Materias VALUES('1005', '1000', 'Español', 'Si se elimina la idea principal de un párrafo este…', 'Se altera el significado real de este', 'Se entiende casi igual', 'Las ideas secundarias suplen a las ideas principales', 'Las ideas complementarias funcionan como ideas principales');
 
 
+INSERT INTO Materias VALUES('2001', '2000', 'Matemáticas', 'La expresión algebraica en una sucesión es 7n + 2 ¿cuál es el vigésimo término de la sucesión?', '142', '42', '140', '20');
 INSERT INTO Materias VALUES('2002', '2000', 'Matemáticas', 'Para la sucesión 6, 11, 16, 21, 26, 31, 36, 41… subraya la expresiónalgebraica que te permite encontrar el término que está en el lugar n.', '5n + 1', 'n - 5', 'n + 5', 'n');
 INSERT INTO Materias VALUES('2003', '2000', 'Matemáticas', 'La expresión algebraica que permite encontrar cualquier número de lasucesión 2, 5, 8, 11, 14… es 3n − 1, donde n indica el lugar del número dentrode la sucesión. ¿Cuál es el número que ocupa el lugar 100 en la sucesión?', '299', '289', '301', '279');
 INSERT INTO Materias VALUES('2004', '2000', 'Matemáticas', '¿Cuál de las siguientes afirmaciones es verdadera al hablar de dos figurassimétricas con respecto a un eje?', 'Sus lados correspondientes tienen la misma medida', 'Sus lados correspondientes tienen diferente medida', 'Sus ángulos correspondientes tienen diferente medida', 'Sus vértices correspondientes no equidistan del eje de simetría');
 INSERT INTO Materias VALUES('2005', '2000', 'Matemáticas', 'En un restaurante una persona puede elegir entre 2 sopas, 4 guisados y 3postres. ¿De cuántas formas diferentes puede elegir su menú?', '24', '18', '12', '9');
-/*INSERT INTO Materias VALUES('2006', '2000', 'Matemáticas', 'La expresión algebraica en una sucesión es 7n + 2 ¿cuál es el vigésimo término de la sucesión?', '142', '42', '140', '20');*/
 
 
 INSERT INTO Materias VALUES('3001', '3000', 'Ciencias', 'Es una actividad que permite al ser humano comprender el mundo en que vive. Estudia los hechos yfenómenos de la naturaleza.', 'Ciencia', 'Biotecnología', 'Tecnología', 'Geología');
