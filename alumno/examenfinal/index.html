@@ -11,15 +11,25 @@
 	<link rel="shortcut icon" href="../../images/logo.png">
 </head>
 <body class='light-blue accent-4'>
-	<nav>
+	<nav class="white">
 
 	</nav>
 	<div class="container espacio-arriba">
 		<div class="row">
 			<div class="s12">
 				<div class="card">
-					<div class="content"></div>
-					<div class="card-action"></div>
+					<form action="enviar_respuestas.php" method="post">
+						<div class="content">
+							<span class="card-title"></span>
+						</div>
+						<div class="card-action hide grey lighten-2">
+	                        <center>
+	                            <button class="btn waves-effect waves-light blue" type="submit" name="action" id="action">
+	                                Enviar Respuestas<i class="material-icons right">send</i>
+	                            </button>
+	                        </center>
+	                    </div>
+					</form>
 				</div>
 			</div>
 		</div>

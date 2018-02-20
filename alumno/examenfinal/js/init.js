@@ -61,74 +61,15 @@ function obtener_folios() {
 }
 z = 0;
 $(document).ready(function(){
-    $(".button-collapse").sideNav();
     obtener_folios();
     folio_use = getParameterByName('folio');
-    $("#espanol_exa").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
+    $(".card").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
     $.get("pruebas.php", {folios: folios_para_usar},function(data){
         if(data.error){
             window.alert(data.mensaje);
         }
-        for (var i = 0; i < id_general.length; i++) {
-            for (var k = 0; k < 3; k++){
-                opc = [];
-                for (var a = 0; a < 4; a++) {
-                    opc.push(aleatorio2(4, 7));
-                }
-                var respuesta1 = '<div class="tab espacio-arriba"><p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_a" value="'+data[z][opc[0]]+'_a" required/><label for="respuesta_'+id_general[i]+(k+1)+z+'_a">a) '+data[z][opc[0]]+'</label></p><br>';
-                var respuesta3 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_c" value="'+data[z][opc[2]]+'_c" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_c">c) '+data[z][opc[2]]+'</label></p><br>';
-                var respuesta2 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_b" value="'+data[z][opc[1]]+'_b" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_b">b) '+data[z][opc[1]]+'</label></p><br>';
-                var respuesta4 = '<p><input class="with-gap" name="'+id_general[i]+k+'" type="radio" id="respuesta_'+id_general[i]+(k+1)+z+'_d" value="'+data[z][opc[3]]+'_d" /><label for="respuesta_'+id_general[i]+(k+1)+z+'_d">d) '+data[z][opc[3]]+'</label></p></div>';
-                $("#"+id_general[i]).append('<div class="espacio-arriba" id="test'+i+'-swipe-'+(k+1)+'"><div class="input-field hide"><input type="text" name="folio_pregunta_'+z+'" value="'+data[z][0]+'"></div><p>Pregunta '+(z+1)+': '+data[z][3]+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4+'</div>');
-                $('ul.tabs').tabs();
-                z+=1;
-            }
+        else {
+            $(".card-title").text("Materia: "+data[0].Materia);
         }
-        $("#mate_exa").hide();
-        $("#ciencias_exa").hide();
-        $("#historia_exa").hide();
-        $("#geografia_exa").hide();
-        $("#espanol_exa").show();
-        $("#titulo").text("Materia: Español");
     }, "json" );
-});
-$("#espanol").click(function(){
-    $("#titulo").text("Materia: Español");
-    $("#mate_exa").hide();
-    $("#ciencias_exa").hide();
-    $("#historia_exa").hide();
-    $("#geografia_exa").hide();
-    $("#espanol_exa").show();
-});
-$("#mate").click(function(){
-    $("#titulo").text("Materia: Matemáticas");
-    $("#espanol_exa").hide();
-    $("#ciencias_exa").hide();
-    $("#historia_exa").hide();
-    $("#geografia_exa").hide();
-    $("#mate_exa").show();
-});
-$("#ciencias").click(function(){
-    $("#titulo").text("Materia: Ciencias");
-    $("#espanol_exa").hide();
-    $("#mate_exa").hide();
-    $("#historia_exa").hide();
-    $("#geografia_exa").hide();
-    $("#ciencias_exa").show();
-});
-$("#historia").click(function(){
-    $("#titulo").text("Materia: Historia");
-    $("#espanol_exa").hide();
-    $("#mate_exa").hide();
-    $("#ciencias_exa").hide();
-    $("#geografia_exa").hide();
-    $("#historia_exa").show();
-});
-$("#geografia").click(function(){
-    $("#titulo").text("Materia: Geografía");
-    $("#espanol_exa").hide();
-    $("#mate_exa").hide();
-    $("#ciencias_exa").hide();
-    $("#historia_exa").hide();
-    $("#geografia_exa").show();
 });
