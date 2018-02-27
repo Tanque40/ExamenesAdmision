@@ -49,24 +49,24 @@ function repetido2(num2){
     }
     return repe2;
 }
-function obtener_folios(materia, pregunta) {
-    for (var i = 0; i < folios_preguntas.length; i++) {
-        for (var k = 0; k < 3; k++) {
-            folios_para_usar.push(aleatorio(folios_preguntas[i][0], folios_preguntas[i][4]));
-            //console.log(folios_para_usar.toString());
-        }
+//Con esta funcion generaremos lo folios aleatorios por materia
+function obtener_folios(rango, numero_preguntas) {
+    for (var i = 0; i < numero_preguntas; i++) {
+        //El regiustro entra directo a los folios finales de preguntas a realizar
+        folios_preguntas.push(aleatorio(rango[0], rango[rango.length-1]));
+        console.log(folios_preguntas);
     }
 }
 function separar_folios(folios){
     //La intencion de la funcion es separar en grupos de folios los folios ya recibidos
-    //COmenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
+    //Comenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
     x = []
     //El primer ciclo irá avanzando dependiendo el tamaño de los folios que recibieron
     for (var i = 0; i < folios.length; i++) {
         //Primero para asegurar que no sea el ultimo elemento del array
         if(folios[i] == folios[folios.length-1]){
             //En caso de serlo se añadirá al elemento de array que ya esta desarrollado
-            x.push(folios[i]);
+            x.push(parseInt(folios[i]));
             //Una vez agregado tambien se añadirá al arreglo final
             folios_para_usar.push(x)
         }
@@ -93,8 +93,10 @@ num_folios = getParameterByName('num_folios');
 folios_disponibles = getParameterByName('folios_preguntas');
 //Separamos lo folios del string y los volvemos un mismo arreglo
 folios_disponibles_final = folios_disponibles.split(",", num_folios);
+//Pasamos a la funcion los elemento de los folios que recibimos de URL
 separar_folios(folios_disponibles_final);
-console.log(folios_para_usar[0]);
+//Solo para asegurarnos que todo haya salido correcto
+console.log(folios_para_usar);
 z = 0;
 //Una vez qu el documento haya cargado lo básico procederá con lo siguiente:
 $(document).ready(function(){
@@ -106,16 +108,30 @@ $(document).ready(function(){
     materias = getParameterByName('info');
     //Se crea el arreglo separando por "," y en un maximo de elementos
     para_usar = materias.split(",", elementos);
+    //Añadiremos cada folio con un ciclo el cual mandará el numero de preguntas por materia
+    // y mandara el rango de folios
+    //Nos llevara un contador muy necesario
+    k = 0
+    for (var i = 0; i < para_usar.length; i+=2) {
+        obtener_folios(folios_para_usar[k], para_usar[i+1]);
+        k += 1;
+    }
     //Añadimos un input oculto para tener el folio donde se van a guardar
     $(".card").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
     //Funcion en JQuery que manda a llamar un archivo php, le pasamos variables desde las sentencias {}
-    $.get("pruebas.php", {folios: folios_para_usar},function(data){
+    $.get("pruebas.php", {folios: folios_preguntas},function(data){
         //Si llega a haber errores se mostrara un mensaje
         if(data.error){
             window.alert(data.mensaje);
         }
         else {
-            $(".card-title").text("Materia: ");
+            k = 0;
+            //Comenzaremos un ciclo que se repetira el mismo numero de veces que las materias que haya
+            for (var i = 0; i < para_usar.length/2; i++) {
+                //tambien por fuera iniciamos un contador que va a llevar todas las preguntas
+                para_usar[i]
+            }
         }
     }, "json");
+    //$('ul.tabs').tabs();
 });
