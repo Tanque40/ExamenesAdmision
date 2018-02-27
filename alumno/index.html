@@ -28,7 +28,9 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 var folio_use;
+var solicitud = [];
 $(document).ready(function(){
+    var solicitud = [];
     folio_use = getParameterByName('folio');
     $.get("comprobardatos.php",{folio_usado: folio_use}, function(data){
         $("#lol").val(data.error);
@@ -37,9 +39,24 @@ $(document).ready(function(){
         $("#apellido_paterno").val(data.apellido_p);
         $("#apellido_materno").val(data.apellido_m);
         $("#grupo").val(data.grupo);
-  }, "json" );
+    }, "json" );
   $("input").prop('disabled', true);
 });
+$.get("no_pregruntas_secciones.php",function(info){
+    if (info.error) {
+        alert(info.mensaje);
+        alert("Por favor recarga la página, si el problema consiste avisale a tu profesor");
+    }
+    else{
+        console.log(info[0][0]);
+        for (var i = 0; i < info.length; i++) {
+            solicitud[i] = [];
+            for (var k = 0; k < 2; k++) {
+                solicitud[i][k] = info[i][k];
+            }
+        }
+    }
+}, "json" );
 </script>
 <body style="background-color: #c9c9c9;">
     <form class="" action="" method="post" id="form">
@@ -89,8 +106,11 @@ $(document).ready(function(){
             });
         });
         $('#action').click(function(){
-             $('#form').attr('action', "examenfinal/index.html?folio="+folio_use);
-            window.location.href = "examenfinal/index.html?folio="+folio_use;
+            var lol = solicitud.length * 2;
+            folios_preguntas = getParameterByName('folios_preguntas');
+            num_folios = getParameterByName('num_folios');
+            $('#form').attr('action', "examenfinal/index.html?folio="+folio_use+"&folios_preguntas="+folios_preguntas+"&ele="+lol+"&info="+solicitud+"&num_folios="+num_folios);
+            window.location.href = "examenfinal/index.html?folio="+folio_use+"&info="+solicitud;
         });
     </script>
 </body>
