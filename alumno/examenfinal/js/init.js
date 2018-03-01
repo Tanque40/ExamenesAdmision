@@ -125,13 +125,48 @@ $(document).ready(function(){
             window.alert(data.mensaje);
         }
         else {
-            k = 0;
+            con_preguntas = 0;
             //Comenzaremos un ciclo que se repetira el mismo numero de veces que las materias que haya
-            for (var i = 0; i < para_usar.length/2; i++) {
+            for (var i = 0; i < para_usar.length; i+=2) {
                 //tambien por fuera iniciamos un contador que va a llevar todas las preguntas
-                para_usar[i]
+                //Comenzamos creando el elemnto de las tab principal, el replace se usa para quitar los caracteres especiales de los nombres
+                $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'">'+para_usar[i]+'</a></li>');
+                //Dentro de los card también añadiremos los nuevos tabs dependiendo la pregunta y la seccion
+                //tambien dentro de esta se creará la lista con las preguntas de cada sección
+                $("#contenido").append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" class="col s12"><div class="row"><div class="col s12"><ul class="tabs" id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'-tab"></ul></div></div></div>');
+                //Un ciclo que represente el numero de preguntas que hay por materia
+                for (var k = 0; k < parseInt(para_usar[i+1]); k++) {
+                    //Dependiendo el numero de preguntas se irá agregando el elemento a la barra tab
+                    //Dejamos activa
+                    if(con_preguntas == 0){
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3"><a class="black-text active" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                    }
+                    else{
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                    }
+                    //Creamos el div correspondiente a cada pregunta
+                    $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))).append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'"></div>');
+                    //Añadimos el contenido al div
+                    //Generamos primero un aleatorio para el acomodo de las respuestas
+                    opc = [];
+                    for (var a = 0; a < 4; a++) {
+                        opc.push(aleatorio2(0, 3));
+                    }
+                    //Por fines practicos se crearán primero variables con el contenido de cada respuesta
+                    respuesta1 = '<div class="other-top"><p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_a" value="'+data[con_preguntas][opc[0]]+'_a" required/><label for="respuestas['+con_preguntas+'][2]_a">a) '+data[con_preguntas][opc[0]]+'</label></p><br>'
+                    respuesta2 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_b" value="'+data[con_preguntas][opc[1]]+'_b" required/><label for="respuestas['+con_preguntas+'][2]_b">b) '+data[con_preguntas][opc[1]]+'</label></p><br>'
+                    respuesta3 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_c" value="'+data[con_preguntas][opc[2]]+'_c" required/><label for="respuestas['+con_preguntas+'][2]_c">c) '+data[con_preguntas][opc[2]]+'</label></p><br>'
+                    respuesta4 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_d" value="'+data[con_preguntas][opc[1]]+'_d" required/><label for="respuestas['+con_preguntas+'][2]_d">d) '+data[con_preguntas][opc[3]]+'</label></p><br></div>'
+                    //Se añade la preguta al contenido con todo y sus posibles respuestas
+                    $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k).append('<div class="input-field hide"><input type="text" name="respuestas['+con_preguntas+'][1]" value="'+data[con_preguntas].id_pregunta+'"></div><p>'+data[con_preguntas].pregunta+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4);
+                    //Se aumenta el conteo de las preguntas
+                    con_preguntas += 1;
+                    $('ul.tabs').tabs();
+                }
+                $('ul.tabs').tabs();
             }
         }
     }, "json");
-    //$('ul.tabs').tabs();
+
+$( "#"+(para_usar[0].replace(/[^a-zA-Z 0-9.]+/g,''))+"0_uno" ).trigger( "click" );
 });
