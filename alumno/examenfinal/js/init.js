@@ -54,9 +54,13 @@ function obtener_folios(rango, numero_preguntas) {
     for (var i = 0; i < numero_preguntas; i++) {
         //El regiustro entra directo a los folios finales de preguntas a realizar
         folios_preguntas.push(aleatorio(rango[0], rango[rango.length-1]));
-        console.log(folios_preguntas);
+        //console.log(folios_preguntas);
     }
 }
+$("input").prop(function(){
+    respuestas_totales += 1;
+    console.log(respuestas_totales);
+});
 function separar_folios(folios){
     //La intencion de la funcion es separar en grupos de folios los folios ya recibidos
     //Comenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
@@ -96,7 +100,7 @@ folios_disponibles_final = folios_disponibles.split(",", num_folios);
 //Pasamos a la funcion los elemento de los folios que recibimos de URL
 separar_folios(folios_disponibles_final);
 //Solo para asegurarnos que todo haya salido correcto
-console.log(folios_para_usar);
+//console.log(folios_para_usar);
 z = 0;
 //Una vez qu el documento haya cargado lo básico procederá con lo siguiente:
 $(document).ready(function(){
@@ -131,9 +135,10 @@ $(document).ready(function(){
                 //tambien por fuera iniciamos un contador que va a llevar todas las preguntas
                 //Comenzamos creando el elemnto de las tab principal, el replace se usa para quitar los caracteres especiales de los nombres
                 $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'">'+para_usar[i]+'</a></li>');
+                $('ul.tabs').tabs();
                 //Dentro de los card también añadiremos los nuevos tabs dependiendo la pregunta y la seccion
                 //tambien dentro de esta se creará la lista con las preguntas de cada sección
-                $("#contenido").append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" class="col s12"><div class="row"><div class="col s12"><ul class="tabs" id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'-tab"></ul></div></div></div>');
+                $("#contenido").append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" class="col s12"><div class="row"><div class="col s12"><ul class="tabs tabs-fixed-width" id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'-tab"></ul></div></div></div>');
                 //Un ciclo que represente el numero de preguntas que hay por materia
                 for (var k = 0; k < parseInt(para_usar[i+1]); k++) {
                     //Dependiendo el numero de preguntas se irá agregando el elemento a la barra tab
@@ -152,6 +157,7 @@ $(document).ready(function(){
                     for (var a = 0; a < 4; a++) {
                         opc.push(aleatorio2(0, 3));
                     }
+                    $('ul.tabs').tabs();
                     //Por fines practicos se crearán primero variables con el contenido de cada respuesta
                     respuesta1 = '<div class="other-top"><p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_a" value="'+data[con_preguntas][opc[0]]+'_a" required/><label for="respuestas['+con_preguntas+'][2]_a">a) '+data[con_preguntas][opc[0]]+'</label></p><br>'
                     respuesta2 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_b" value="'+data[con_preguntas][opc[1]]+'_b" required/><label for="respuestas['+con_preguntas+'][2]_b">b) '+data[con_preguntas][opc[1]]+'</label></p><br>'
@@ -161,12 +167,19 @@ $(document).ready(function(){
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k).append('<div class="input-field hide"><input type="text" name="respuestas['+con_preguntas+'][1]" value="'+data[con_preguntas].id_pregunta+'"></div><p>'+data[con_preguntas].pregunta+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4);
                     //Se aumenta el conteo de las preguntas
                     con_preguntas += 1;
-                    $('ul.tabs').tabs();
                 }
-                $('ul.tabs').tabs();
             }
         }
     }, "json");
-
-$( "#"+(para_usar[0].replace(/[^a-zA-Z 0-9.]+/g,''))+"0_uno" ).trigger( "click" );
+    $('ul.tabs').tabs();
+});
+//Contador para saber cunado enviar las respuestas
+respuestas_totales = 0
+//cada que se de click en un radio button se agregara uno al contador si ya ha sido todo resuelto aparecera el boton de enviar
+$('input.with-gap').click(function(){
+    respuestas_totales += 1;
+    console.log(respuestas_totales);
+    if(respuestas_totales == z){
+        $('.card-action').removeClass('hide');
+    }
 });
