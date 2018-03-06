@@ -57,10 +57,6 @@ function obtener_folios(rango, numero_preguntas) {
         //console.log(folios_preguntas);
     }
 }
-$("input").prop(function(){
-    respuestas_totales += 1;
-    console.log(respuestas_totales);
-});
 function separar_folios(folios){
     //La intencion de la funcion es separar en grupos de folios los folios ya recibidos
     //Comenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
@@ -101,7 +97,11 @@ folios_disponibles_final = folios_disponibles.split(",", num_folios);
 separar_folios(folios_disponibles_final);
 //Solo para asegurarnos que todo haya salido correcto
 //console.log(folios_para_usar);
-z = 0;
+    //Aqui comienza algo un tanto abstracto de esto
+    //Inicializamos un diccionario, la intencion es que guarde los nombres(name) que existen
+    //los guardara con un valor "sin contestar"
+    //Este nos permitira saber que una vez contestados no aumente el contador de las preguntas que ya han sido resultas
+    dic_respuestas = {};
 //Una vez qu el documento haya cargado lo básico procederá con lo siguiente:
 $(document).ready(function(){
     //Indicamos el folio del alumno
@@ -142,12 +142,13 @@ $(document).ready(function(){
                 //Un ciclo que represente el numero de preguntas que hay por materia
                 for (var k = 0; k < parseInt(para_usar[i+1]); k++) {
                     //Dependiendo el numero de preguntas se irá agregando el elemento a la barra tab
-                    //Dejamos activa
+                    //Se les añadira un id con el name de la respuesta a la que corresponden para hacer mas facil el coloreo
+                    //Dejamos activa la primera
                     if(con_preguntas == 0){
-                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3"><a class="black-text active" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a id="respuestas['+con_preguntas+'][2]" class="black-text help active" onclick=cambio(this) href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
                     }
                     else{
-                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a id="respuestas['+con_preguntas+'][2]" class="black-text" onclick=cambio(this) href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
                     }
                     //Creamos el div correspondiente a cada pregunta
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))).append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'"></div>');
@@ -158,28 +159,46 @@ $(document).ready(function(){
                         opc.push(aleatorio2(0, 3));
                     }
                     $('ul.tabs').tabs();
+                    //Es la unica manera con la que funciono el evento de cambio en radio button
+                    //Se pasa como parametro el this para que mande toda la información del input seleccionado
+                    evento = "onchange=myfunction(this)";
                     //Por fines practicos se crearán primero variables con el contenido de cada respuesta
-                    respuesta1 = '<div class="other-top"><p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_a" value="'+data[con_preguntas][opc[0]]+'_a" required/><label for="respuestas['+con_preguntas+'][2]_a">a) '+data[con_preguntas][opc[0]]+'</label></p><br>'
-                    respuesta2 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_b" value="'+data[con_preguntas][opc[1]]+'_b" required/><label for="respuestas['+con_preguntas+'][2]_b">b) '+data[con_preguntas][opc[1]]+'</label></p><br>'
-                    respuesta3 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_c" value="'+data[con_preguntas][opc[2]]+'_c" required/><label for="respuestas['+con_preguntas+'][2]_c">c) '+data[con_preguntas][opc[2]]+'</label></p><br>'
-                    respuesta4 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_d" value="'+data[con_preguntas][opc[1]]+'_d" required/><label for="respuestas['+con_preguntas+'][2]_d">d) '+data[con_preguntas][opc[3]]+'</label></p><br></div>'
+                    respuesta1 = '<div class="other-top"><p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_a" value="'+data[con_preguntas][opc[0]]+'_a" '+evento+' required/><label for="respuestas['+con_preguntas+'][2]_a">a) '+data[con_preguntas][opc[0]]+'</label></p><br>'
+                    respuesta2 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_b" value="'+data[con_preguntas][opc[1]]+'_b" '+evento+' required/><label for="respuestas['+con_preguntas+'][2]_b">b) '+data[con_preguntas][opc[1]]+'</label></p><br>'
+                    respuesta3 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_c" value="'+data[con_preguntas][opc[2]]+'_c" '+evento+' required/><label for="respuestas['+con_preguntas+'][2]_c">c) '+data[con_preguntas][opc[2]]+'</label></p><br>'
+                    respuesta4 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_d" value="'+data[con_preguntas][opc[1]]+'_d" '+evento+' required/><label for="respuestas['+con_preguntas+'][2]_d">d) '+data[con_preguntas][opc[3]]+'</label></p><br></div>'
                     //Se añade la preguta al contenido con todo y sus posibles respuestas
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k).append('<div class="input-field hide"><input type="text" name="respuestas['+con_preguntas+'][1]" value="'+data[con_preguntas].id_pregunta+'"></div><p>'+data[con_preguntas].pregunta+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4);
+                    //Se añade el nombre(name) de las preguntas con un valor "sin contestar" en un diccionario
+                    dic_respuestas['respuestas['+con_preguntas+'][2]'] = "sin contestar";
                     //Se aumenta el conteo de las preguntas
                     con_preguntas += 1;
                 }
             }
         }
     }, "json");
-    $('ul.tabs').tabs();
 });
 //Contador para saber cunado enviar las respuestas
 respuestas_totales = 0
-//cada que se de click en un radio button se agregara uno al contador si ya ha sido todo resuelto aparecera el boton de enviar
-$('input.with-gap').click(function(){
-    respuestas_totales += 1;
-    console.log(respuestas_totales);
-    if(respuestas_totales == z){
-        $('.card-action').removeClass('hide');
+//esta es la funcion con cada que se de click en un radio button se agregara uno al contador si ya ha sido todo resuelto aparecera el boton de enviar
+//el parametro contará con la informacion de input que se selccionó
+function myfunction(elemento_seleccionado){
+    //Se checa que la pregunta no haya sido contestada aún
+    if (dic_respuestas[$(elemento_seleccionado).attr("name")] == "sin contestar" ) {
+        //Si no ha sido contestada se agrega uno al contador de elementos contestados
+        respuestas_totales += 1
+        //Busca el enlace, que este activo, el help solo es para identificar cual es de preguntas
+        $("a.active.help").addClass("green");
+        //Si ya se contestó todo se mostrará el botón de enviar
+        if (respuestas_totales == con_preguntas) {
+            $(".card-action").removeClass("hide");
+        }
+        //Se cambiará en el diccionario el valor de contestado
+        //de esta forma ya no se añadiran elementos al conteo si ya han sido respondidos
+        dic_respuestas[$(elemento_seleccionado).attr("name")] = "contestado"
     }
-});
+}
+//Se le añade el help para que funcione el coloreado
+function cambio(tab_sele){
+    $(tab_sele).addClass("help");
+}
