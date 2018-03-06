@@ -121,7 +121,7 @@ $(document).ready(function(){
         k += 1;
     }
     //Añadimos un input oculto para tener el folio donde se van a guardar
-    $(".card").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
+    $("form").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
     //Funcion en JQuery que manda a llamar un archivo php, le pasamos variables desde las sentencias {}
     $.get("pruebas.php", {folios: folios_preguntas},function(data){
         //Si llega a haber errores se mostrara un mensaje
@@ -134,7 +134,7 @@ $(document).ready(function(){
             for (var i = 0; i < para_usar.length; i+=2) {
                 //tambien por fuera iniciamos un contador que va a llevar todas las preguntas
                 //Comenzamos creando el elemnto de las tab principal, el replace se usa para quitar los caracteres especiales de los nombres
-                $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'">'+para_usar[i]+'</a></li>');
+                $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" onclick=helpo(this)>'+para_usar[i]+'</a></li>');
                 $('ul.tabs').tabs();
                 //Dentro de los card también añadiremos los nuevos tabs dependiendo la pregunta y la seccion
                 //tambien dentro de esta se creará la lista con las preguntas de cada sección
@@ -145,11 +145,12 @@ $(document).ready(function(){
                     //Se les añadira un id con el name de la respuesta a la que corresponden para hacer mas facil el coloreo
                     //Dejamos activa la primera
                     if(con_preguntas == 0){
-                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a id="respuestas['+con_preguntas+'][2]" class="black-text help active" onclick=cambio(this) href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a class="black-text help help2" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'" onclick=cambio(this)>Pregunta '+(con_preguntas+1)+'</a></li>');
                     }
                     else{
-                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a id="respuestas['+con_preguntas+'][2]" class="black-text" onclick=cambio(this) href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'">Pregunta '+(con_preguntas+1)+'</a></li>');
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+"-tab").append('<li class="tab col s3" ><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'" onclick=cambio(this)>Pregunta '+(con_preguntas+1)+'</a></li>');
                     }
+                    $('ul.tabs').tabs();
                     //Creamos el div correspondiente a cada pregunta
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))).append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'"></div>');
                     //Añadimos el contenido al div
@@ -158,7 +159,6 @@ $(document).ready(function(){
                     for (var a = 0; a < 4; a++) {
                         opc.push(aleatorio2(0, 3));
                     }
-                    $('ul.tabs').tabs();
                     //Es la unica manera con la que funciono el evento de cambio en radio button
                     //Se pasa como parametro el this para que mande toda la información del input seleccionado
                     evento = "onchange=myfunction(this)";
@@ -177,6 +177,8 @@ $(document).ready(function(){
             }
         }
     }, "json");
+    $('ul.tabs').tabs({'swipeable': true});
+    manu();
 });
 //Contador para saber cunado enviar las respuestas
 respuestas_totales = 0
@@ -197,8 +199,32 @@ function myfunction(elemento_seleccionado){
         //de esta forma ya no se añadiran elementos al conteo si ya han sido respondidos
         dic_respuestas[$(elemento_seleccionado).attr("name")] = "contestado"
     }
+    //Busca el enlace, que este activo, el help solo es para identificar cual es de preguntas
+    $("a.active.help").addClass("green");
 }
 //Se le añade el help para que funcione el coloreado
 function cambio(tab_sele){
     $(tab_sele).addClass("help");
 }
+//Ayuda para que se coloreen las respuestas de los primeros elementos de cada sección
+function helpo(esto) {
+    id = $(esto).attr("href");
+    console.log(id);
+    $('a[href="'+id+'0"]').addClass("help");
+}
+function manu() {
+    swal({
+        title: 'Instructivo:',
+        background: 'url(http://goo.gl/jVlMUC)',
+        html: '<ol>'+
+        '<li><strong>Para poder enviar tus respuestas debes contestar todo tu examen</li>'+
+        '<li>Cada que contestes una pregunta se coloreará de verde el número de pregunta contestada</li>'+
+        '<li>Para cambiar de pregunta o sección(materia) deberás dar click en su respectivo nombre</li>'+
+        '<li>Ten cuidado de no recargar la página o tus avances se borrarán</li>'+
+        '<li>Puedes acceder a este instructivo desde el boton <italic>Instructivo</italic> ubicado en la parte inferior izquierda de tu examen</strong></li>'+
+        '</ol>'
+    });
+}
+$("#manual").click(function(){
+    manu();
+});

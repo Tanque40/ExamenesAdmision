@@ -89,7 +89,10 @@ $.get("no_pregruntas_secciones.php",function(info){
                     </div>
                     <div class="card-action">
                         <center>
-                            <button class="btn waves-effect waves-light #e53935 red darken-1" type="submit" name="action" id="action">Entrar
+                            <button class="btn waves-effect waves-light #e53935 red darken-1" type="submit" name="noaction" id="noaction">Este no soy yo
+                                <i class="material-icons right">sentiment_very_dissatisfied</i>
+                            </button>
+                            <button class="btn waves-effect waves-light #e53935 blue darken-1" type="submit" name="action" id="action">Entrar
                                 <i class="material-icons right">send</i>
                             </button>
                         </center>
@@ -111,6 +114,9 @@ $.get("no_pregruntas_secciones.php",function(info){
             num_folios = getParameterByName('num_folios');
             $('#form').attr('action', "examenfinal/index.html?folio="+folio_use+"&folios_preguntas="+folios_preguntas+"&ele="+lol+"&info="+solicitud+"&num_folios="+num_folios);
             window.location.href = "examenfinal/index.html?folio="+folio_use+"&info="+solicitud;
+        });
+        $('#noaction').click(function(){
+            $('#form').attr('action', "../index.html");
         });
     </script>
 </body>
