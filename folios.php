@@ -1,5 +1,5 @@
 <?php
-include '../../conexion.php';
+include 'conexion.php';
 
 /* comprobar la conexión */
 if (mysqli_connect_errno()) {
@@ -7,16 +7,13 @@ if (mysqli_connect_errno()) {
     echo json_encode(array('mensaje' => "Falló la conexión: $error", 'error' => "True"));
     exit();
 }
-
-$folios = $_REQUEST['folios'];
 $array = array();
-for ($i=0; $i < count($folios); $i++) {
-    $prueba = "SELECT * FROM Materias WHERE Id_pregunta = '$folios[$i]'";
+$prueba = "SELECT Id_pregunta FROM Materias";
     if(mysqli_multi_query($link, $prueba)){
         do{
             if ($resul = mysqli_use_result($link)) {
                 while ($fila = mysqli_fetch_row($resul)) {
-                    array_push($array,array('id_pregunta' => "$fila[0]", 'id_materia' => "$fila[1]", 'materia' => "$fila[2]", 'pregunta' => "$fila[3]", "$fila[4]", "$fila[5]", "$fila[6]", "$fila[7]"));
+                    array_push($array,array("$fila[0]"));
                 }
                 mysqli_free_result($resul);
             }
@@ -30,7 +27,6 @@ for ($i=0; $i < count($folios); $i++) {
         echo json_encode(array('mensaje' => $error, 'error' => "True"));
         printf("Errormessage: %s\n", mysqli_error($link));
     }
-}
 
 echo json_encode($array);
 mysqli_close($link);
