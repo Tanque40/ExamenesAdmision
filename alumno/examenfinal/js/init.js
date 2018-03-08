@@ -169,6 +169,10 @@ $(document).ready(function(){
                     respuesta4 = '<p><input class="with-gap" name="respuestas['+con_preguntas+'][2]" type="radio" id="respuestas['+con_preguntas+'][2]_d" value="'+data[con_preguntas][opc[1]]+'_d" '+evento+' required/><label for="respuestas['+con_preguntas+'][2]_d">d) '+data[con_preguntas][opc[3]]+'</label></p><br></div>'
                     //Se añade la preguta al contenido con todo y sus posibles respuestas
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k).append('<div class="input-field hide"><input type="text" name="respuestas['+con_preguntas+'][1]" value="'+data[con_preguntas].id_pregunta+'"></div><p>'+data[con_preguntas].pregunta+'</p>'+respuesta1+respuesta2+respuesta3+respuesta4);
+                    //Si tienen contenido de imagen
+                    if(data[con_preguntas].imagen){
+                        $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k).prepend('<div class="col s12"><img src="'+data[con_preguntas].imagen+'" class="responsive-img"></div>')
+                    }
                     //Se añade el nombre(name) de las preguntas con un valor "sin contestar" en un diccionario
                     dic_respuestas['respuestas['+con_preguntas+'][2]'] = "sin contestar";
                     //Se aumenta el conteo de las preguntas
@@ -177,7 +181,7 @@ $(document).ready(function(){
             }
         }
     }, "json");
-    $('ul.tabs').tabs({'swipeable': true});
+    $('ul.tabs').tabs();
     manu();
 });
 //Contador para saber cunado enviar las respuestas
