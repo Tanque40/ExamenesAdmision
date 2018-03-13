@@ -227,15 +227,19 @@ function helpo(esto) {
 }
 function manu() {
     swal({
-        title: 'Instructivo:',
+        title: 'INSTRUCCIONES:',
         background: 'url(http://goo.gl/jVlMUC)',
         html: '<ol>'+
-        '<li><strong>Para poder enviar tus respuestas debes contestar todo tu examen</li>'+
-        '<li>Cada que contestes una pregunta se coloreará de verde el número de pregunta contestada</li>'+
-        '<li>Para cambiar de pregunta o sección(materia) deberás dar click en su respectivo nombre</li>'+
-        '<li>Ten cuidado de no recargar la página o tus avances se borrarán</li>'+
-        '<li>Puedes acceder a este instructivo desde el boton <italic>Instructivo</italic> ubicado en la parte inferior izquierda de tu examen</strong></li>'+
-        '</ol>'
+        '<li><strong>Para poder ver una pregunta o sección determinada, deberá dar click en el espacio superior que lo señala.</li>'+
+        '<li>Deberá leer atentamente cada una de las preguntas y seleccionar la respuesta que considere correcta. Cada que conteste una pregunta, el espacio superior que marca el número de pregunta, se coloreara.</li>'+
+        '<li>Debe contestar todas las preguntas de cada sección, una vez contestadas, se coloreara el espacio superior que señala la sección.</li>'+
+        '<li>Una vez contestado todo el examen, se activará un botón para enviar sus respuestas.</li>'+
+        '</ol>'+
+        '<h5>OBSERVACIONES:</h5>'+
+        '<ul>'+
+        '<li>No debe reiniciar la página, pues esta acción borrará todos sus avances.</li>'+
+        '<li>Puedes acceder a este instructivo desde el botón <italic>Instructivo</italic> ubicado en la parte inferior izquierda de tu examen.</strong></li>'+
+        '</ul>'
     });
 }
 $("#manual").click(function(){
