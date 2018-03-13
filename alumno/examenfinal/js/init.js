@@ -102,6 +102,8 @@ separar_folios(folios_disponibles_final);
     //los guardara con un valor "sin contestar"
     //Este nos permitira saber que una vez contestados no aumente el contador de las preguntas que ya han sido resultas
     dic_respuestas = {};
+    //Para saber el numero de preguntas de cada seccion
+    dic_seccion = {}
 //Una vez qu el documento haya cargado lo básico procederá con lo siguiente:
 $(document).ready(function(){
     //Indicamos el folio del alumno
@@ -117,6 +119,7 @@ $(document).ready(function(){
     //Nos llevara un contador muy necesario
     k = 0
     for (var i = 0; i < para_usar.length; i+=2) {
+        dic_seccion[para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,'')] = para_usar[i+1];
         obtener_folios(folios_para_usar[k], para_usar[i+1]);
         k += 1;
     }
@@ -134,7 +137,7 @@ $(document).ready(function(){
             for (var i = 0; i < para_usar.length; i+=2) {
                 //tambien por fuera iniciamos un contador que va a llevar todas las preguntas
                 //Comenzamos creando el elemnto de las tab principal, el replace se usa para quitar los caracteres especiales de los nombres
-                $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" onclick=helpo(this)>'+para_usar[i]+'</a></li>');
+                $("#nav").append('<li class="tab col s3"><a class="black-text" href="#'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+'" id="'+para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,'')+'_id" onclick=helpo(this)>'+para_usar[i]+'</a></li>');
                 $('ul.tabs').tabs();
                 //Dentro de los card también añadiremos los nuevos tabs dependiendo la pregunta y la seccion
                 //tambien dentro de esta se creará la lista con las preguntas de cada sección
@@ -154,6 +157,7 @@ $(document).ready(function(){
                     //Creamos el div correspondiente a cada pregunta
                     $("#"+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))).append('<div id="'+(para_usar[i].replace(/[^a-zA-Z 0-9.]+/g,''))+k+'"></div>');
                     //Añadimos el contenido al div
+                    $('ul.tabs').tabs();
                     //Generamos primero un aleatorio para el acomodo de las respuestas
                     opc = [];
                     for (var a = 0; a < 4; a++) {
@@ -181,8 +185,8 @@ $(document).ready(function(){
             }
         }
     }, "json");
-    $('ul.tabs').tabs();
     manu();
+    $('ul.tabs').tabs();
 });
 //Contador para saber cunado enviar las respuestas
 respuestas_totales = 0
@@ -202,6 +206,11 @@ function myfunction(elemento_seleccionado){
         //Se cambiará en el diccionario el valor de contestado
         //de esta forma ya no se añadiran elementos al conteo si ya han sido respondidos
         dic_respuestas[$(elemento_seleccionado).attr("name")] = "contestado"
+        //Para cada seccion
+        dic_seccion[$(elemento_seleccionado).parent().parent().parent().attr("id").replace(/.$/, '')] -= 1;
+        if(dic_seccion[$(elemento_seleccionado).parent().parent().parent().attr("id").replace(/.$/, '')] == 0){
+            $("#"+$(elemento_seleccionado).parent().parent().parent().attr("id").replace(/.$/, '')+"_id").addClass('green');
+        }
     }
     //Busca el enlace, que este activo, el help solo es para identificar cual es de preguntas
     $("a.active.help").addClass("green");
