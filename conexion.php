@@ -1,4 +1,4 @@
 <?php
-$link = mysqli_connect("localhost", "root", "bvitte18", "dev_examen");
+$link = mysqli_connect("localhost", "root", "BACPonra2018", "dev_examen");
 mysqli_query($link, "SET NAMES 'utf8'");
  ?>

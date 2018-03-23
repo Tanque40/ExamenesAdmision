@@ -56,7 +56,15 @@ if (!isset($_SESSION['user'])) {
 		  		<div class="col s12">
 		  			<div class="card">
 		  				<div class="card-content">
-
+									<span class="card-title center"><b>Instructivo</b></span>
+									<div class="flow-text">
+										Dentro de esta parte te daremos una breve explicación de lo que puedes hacer en cada uno de los apartados del sistema.<br>
+										<b>Secciones: </b>Aquí podrás crear, ver, actualizar y eliminar las secciones que contendrán el examen. También podrás consultar las preguntas registradas para cada sección.<br>
+										<b>Preguntas: </b>Dentro de éste apartado podrás registrar las preguntas que aparecerán en cada sección, así como tambien podrás descargar reportes PDF de las preguntas y respuestas correctas.<br>
+										<b>Aspirantes: </b>Podrás visualizar y buscar en tiempo real a los aspirantes. También puedes descargar reportes en Excel y ver las respuestas de los alumnos en formato PDF.<br>
+										<b>Calificar: </b>Una vez realizados los examenes, podrás calificarlos de manera automatizada.<br>
+										<b>Resultados: </b>Podrás verificar los resultados y puntajes de cada alumno, así como una calificación desglosada por cada aspirante. (Esta pestaña estará desactivada hasta que sean calificados los examenes)
+									</div>
 		  				</div>
 		  			</div>
 		  		</div>
@@ -81,14 +89,23 @@ if (!isset($_SESSION['user'])) {
 		    </div></li>
 
 		    <li><a href="index.php"><i class="material-icons">home</i>Inicio</a></li>
-		    <li><a href="materias.php"><i class="material-icons">create</i>Materias</a></li>
+		    <li><a href="materias.php"><i class="material-icons">create</i>Secciones</a></li>
 		    <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
 		    <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
-		    <li><a disabled><i class="material-icons">assessment</i>Resultados</a></li>
+		    <li><a href="../calificar/calif.html"><i class="material-icons">assessment</i>Calificar</a></li>
+				<?php
+					$consulta = $con->query("SELECT * FROM calificacion");
+					$resultados = mysqli_num_rows($consulta);
+					if ($resultados < 1) {
+				 ?>
+				 	<li><a disabled><i class="material-icons">assignment_ind</i>Resultados</a></li>
+			 <?php }else{?>
+				 	<li><a href="resultados.php"><i class="material-icons">assignment_ind</i>Resultados</a></li>
+			 <?php } ?>
 				<li><a href="logout.php"><i class="material-icons">exit_to_app</i>Salir del sistema</a></li>
 
 		    <li><div class="divider"></div></li>
-		    <center><br><br><p><i class="material-icons">settings</i></p><p>ADMINISTRADOR</p></center>
+		    <center><p><i class="material-icons">settings</i></p><p>ADMINISTRADOR</p></center>
  		</ul>
   		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
  </div>
