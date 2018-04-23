@@ -97,7 +97,7 @@ folios_disponibles_final = folios_disponibles.split(",", num_folios);
 separar_folios(folios_disponibles_final);
 //Solo para asegurarnos que todo haya salido correcto
 //console.log(folios_para_usar);
-    //Aqui comienza algo un tanto abstracto de esto XD XD
+    //Aqui comienza algo un tanto abstracto de esto
     //Inicializamos un diccionario, la intencion es que guarde los nombres(name) que existen
     //los guardara con un valor "sin contestar"
     //Este nos permitira saber que una vez contestados no aumente el contador de las preguntas que ya han sido resultas

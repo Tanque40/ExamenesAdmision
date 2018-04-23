@@ -28,6 +28,12 @@
           case 'anade':
             $pagina = 'preguntas.php';
             break;
+            case 'seccion':
+              $pagina = 'preguntas.php';
+              break;
+              case 'adseccion':
+                $pagina = 'materias.php';
+                break;
       }
 
       if ($t == "error") {

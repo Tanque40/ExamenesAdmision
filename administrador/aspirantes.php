@@ -3,7 +3,7 @@ include 'conexion.php';
 if (!isset($_SESSION['user'])) {
 	header('location: index.php');
 }
-$datos = $con->query("SELECT * FROM alumnos");
+$datos = $con->query("SELECT * FROM Alumnos");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -59,28 +59,14 @@ $datos = $con->query("SELECT * FROM alumnos");
 	  	<div class="container">
 		  	<div class="row">
 		  		<div class="col s12">
+            <div class="input-field">
+            <i class="material-icons prefix">search</i>
+              <input type="text" class = "buscar"  id="buscar">
+              <label for="buscar">Ingresa aquí tú búsqueda</label>
+            </div>
 		  			<div class="card">
 		  				<div class="card-content">
-                  <table class="excel" border="1">
-                    <thead>
-                      <th>Folio</th>
-                      <th>Nombre</th>
-                      <th>Apellido Paterno</th>
-                      <th>Apellido Materno</th>
-                      <th class="borrar"><a href="pdf.php" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">picture_as_pdf</i></a></th>
-
-                    </thead>
-                    <tbody>
-                      <?php while ($user = mysqli_fetch_array($datos)) {?>
-                        <tr>
-                          <td><?php echo $user['Folio']; ?></td>
-                          <td><?php echo $user['Nombre']; ?></td>
-                          <td><?php echo $user['Apellido_P']; ?></td>
-                          <td><?php echo $user['Apellido_M']; ?></td>
-                        </tr>
-                      <?php } ?>
-                    </tbody>
-                  </table>
+                  <div id="datos"></div>
 		  				</div>
 		  			</div>
 		  		</div>
@@ -99,19 +85,28 @@ $datos = $con->query("SELECT * FROM alumnos");
 		    </div></li>
 
 				<li><a href="index.php"><i class="material-icons">home</i>Inicio</a></li>
-			 <li><a href="materias.php"><i class="material-icons">create</i>Materias</a></li>
-			 <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
-			 <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
-			 <li><a disabled><i class="material-icons">assessment</i>Resultados</a></li>
-			 <li><a href="logout.php"><i class="material-icons">exit_to_app</i>Salir del sistema</a></li>
+		    <li><a href="materias.php"><i class="material-icons">create</i>Secciones</a></li>
+		    <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
+		    <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
+		    <li><a href="../calificar/calif.html"><i class="material-icons">assessment</i>Calificar</a></li>
+				<?php
+					$consulta = $con->query("SELECT * FROM calificacion");
+					$resultados = mysqli_num_rows($consulta);
+					if ($resultados < 1) {
+				 ?>
+				 	<li><a disabled><i class="material-icons">assignment_ind</i>Resultados</a></li>
+			 <?php }else{?>
+				 	<li><a href="resultados.php"><i class="material-icons">assignment_ind</i>Resultados</a></li>
+			 <?php } ?>
+				<li><a href="logout.php"><i class="material-icons">exit_to_app</i>Salir del sistema</a></li>
 
 		    <li><div class="divider"></div></li>
-		    <center><br><br><p><i class="material-icons">settings</i></p><p>ADMINISTRADOR</p></center>
+		    <center><p><i class="material-icons">settings</i></p><p>ADMINISTRADOR</p></center>
  		</ul>
   		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
  </div>
 </main>
-
+<script src = "js/main.js" ></script>
 <script type="text/javascript">
   $('.botone').click(function(){
     $('.borrar').remove();

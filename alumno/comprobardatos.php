@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
    exit();
 }
   $folio = $_REQUEST['folio_usado'];
-  $prueba = "SELECT * FROM Alumnos where Folio = '$folio'";
+  $prueba = "SELECT * FROM alumnos where Folio = '$folio'";
   if(mysqli_multi_query($link, $prueba)){
     do {
       if ($resul = mysqli_use_result($link)) {
