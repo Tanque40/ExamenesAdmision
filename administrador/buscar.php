@@ -1,7 +1,6 @@
 <?php
 include 'conexion.php';
 $salida = "";
-
 $query = "SELECT * FROM alumnos";
 if (isset($_POST['consulta'])) {
   $q = $con ->real_escape_string($_POST['consulta']);
