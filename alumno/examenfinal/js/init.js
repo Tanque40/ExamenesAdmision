@@ -62,15 +62,7 @@ function separar_folios(folios){
     //Comenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
     x = []
     //Contaremos los caracteres de un folio para saber que posición debe comparar
-    if (folios[1].length == 7) {
-        num = 4;
-    }
-    else if (folios[1].length == 8) {
-        num = 5;
-    }
-    else {
-        num = 6
-    }
+    num = 4
     //El primer ciclo irá avanzando dependiendo el tamaño de los folios que recibieron
     for (var i = 0; i < folios.length; i++) {
         //Primero para asegurar que no sea el ultimo elemento del array

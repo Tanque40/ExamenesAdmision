@@ -26,8 +26,8 @@
     <?php
     $respuestas = array();
     $respuestas_c = array();
-    $consulta_BD = "SELECT * FROM Respuestas_alumno;";
-    $consulta_BD .= "SELECT Id_pregunta, Respuesta_correcta FROM Materias";
+    $consulta_BD = "SELECT * FROM respuestas_alumno;";
+    $consulta_BD .= "SELECT Id_pregunta, Respuesta_correcta FROM materias";
     $respuestas_alunmo0_correcta1 = 0;
     if(mysqli_multi_query($link, $consulta_BD)):?>
         <?php do{ ?>
