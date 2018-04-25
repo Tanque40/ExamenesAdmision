@@ -12,7 +12,7 @@
 </head>
 <body class="#e0e0e0 grey lighten-2">
 	<div class="container center">
-		<img src="images/logo.png" width="250px">
+		<img src="images/logo.png" width="250px" class="responsive-img">
 	</div>
 	<div class="container">
 		<div class="row">
@@ -20,7 +20,7 @@
 				<div class="card z-depth-5">
 					<div class="card-content">
 						<span class="flow-text"><center>INICIO</center></span>
-						<form method="POST" action="" id="form">
+						<form method="POST" action="alumno.php" id="form">
 							<div class="input-field">
 								<i class="material-icons prefix">assignment_ind</i>
 								<input type="password" name="alum_password" id="alum_password" required>
@@ -31,7 +31,6 @@
 								<input type="password" name="verify" id="verify" required>
 								<label for="verify">Vuelve a introducir la matrìcula</label>
 							</div>
-							<p id="verifircar"></p>
 							<div class="input-field">
 								<center>
 									<button class="btn waves-effect waves-light #e53935 red darken-1" type="submit" name="action" id="action">Entrar
@@ -46,21 +45,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-var folios;
-$.get("folios.php",function(data){
-	//Si llega a haber errores se mostrara un mensaje
-	if(data.error){
-		window.alert(data.mensaje);
-		window.alert("Por favor recarga la página, si el problema continua avisale a tu profesor")
-	}
-	else {
-		folios = data;
-	}
-}, "json");
-$('#action').click(function(){
-	num_folios = folios.length;
-	$('#form').attr('action', "alumno.php?folios_preguntas="+folios+"&num_folios="+num_folios);
-});
-</script>
 </html>

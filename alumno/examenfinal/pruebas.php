@@ -8,10 +8,10 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$folios = $_REQUEST['folios'];
+$folios = $_GET['folios'];
 $array = array();
 for ($i=0; $i < count($folios); $i++) {
-    $prueba = "SELECT * FROM Materias WHERE Id_pregunta = '$folios[$i]'";
+    $prueba = "SELECT * FROM materias WHERE Id_pregunta = '$folios[$i]'";
     if(mysqli_multi_query($link, $prueba)){
         do{
             if ($resul = mysqli_use_result($link)) {

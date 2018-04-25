@@ -22,17 +22,12 @@
     }
     $password = $_POST['alum_password'];
     $verifica = $_POST['verify'];
-    $folios = $_GET['folios_preguntas'];
-    $x = $_GET['num_folios'];
     $prueba = "SELECT * FROM alumnos where '$password' = Folio";
     if(mysqli_multi_query($link, $prueba)){
         if ($resul = mysqli_use_result($link)) {
             if ($fila = mysqli_fetch_row($resul)) {
                 if($fila[0] == $password && $verifica == $password){
-                    header( "refresh: 0.1;url=alumno/index.html?folio=$password&folios_preguntas=$folios&num_folios=$x" );
-                }
-                else{
-                    printf("Error: %s", mysqli_error($link));
+                    header( "refresh: 0.1;url=alumno/index.html?folio=$password" );
                 }
             }
             else {
@@ -53,7 +48,7 @@
         <script type="text/javascript">
             swal(
                 'Error',
-                'Su folio no coincide',
+                'Su folio no coincide, inténtelo nuevamente',
                 'error'
             ).then(function(){
                 window.location.href = "index.html"
@@ -63,7 +58,7 @@
         <script type="text/javascript">
             swal(
                 'Error',
-                'No encontrado en la base de datos',
+                'No encontrado en la base de datos, inténtelo nuevamente',
                 'error'
             ).then(function(){
                 window.location.href = "index.html"

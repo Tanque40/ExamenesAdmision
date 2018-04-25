@@ -54,25 +54,35 @@ function obtener_folios(rango, numero_preguntas) {
     for (var i = 0; i < numero_preguntas; i++) {
         //El regiustro entra directo a los folios finales de preguntas a realizar
         folios_preguntas.push(aleatorio(rango[0], rango[rango.length-1]));
-        //console.log(folios_preguntas);
+        console.log(folios_preguntas);
     }
 }
 function separar_folios(folios){
     //La intencion de la funcion es separar en grupos de folios los folios ya recibidos
     //Comenzamos inicializando un array vacio el cual nos servirá de auxiliar para ir llenando un arreglo mas grande
     x = []
+    //Contaremos los caracteres de un folio para saber que posición debe comparar
+    if (folios[1].length == 7) {
+        num = 4;
+    }
+    else if (folios[1].length == 8) {
+        num = 5;
+    }
+    else {
+        num = 6
+    }
     //El primer ciclo irá avanzando dependiendo el tamaño de los folios que recibieron
     for (var i = 0; i < folios.length; i++) {
         //Primero para asegurar que no sea el ultimo elemento del array
         if(folios[i] == folios[folios.length-1]){
             //En caso de serlo se añadirá al elemento de array que ya esta desarrollado
-            x.push(parseInt(folios[i]));
+            x.push(parseInt(folios[i]));;
             //Una vez agregado tambien se añadirá al arreglo final
             folios_para_usar.push(x)
         }
         else {
             //En caso contrario se checa que los folios sean iguales, pertenezcan a la misma base todos en 1000 o 2000 etc
-            if (folios[i][0] == folios[i+1][0]) {
+            if (folios[i][num] == folios[i+1][num]) {
                     //En caso de serlo se agrega el numero a nuestro arreglo auxiliar convirtiendolo a entero
                     x.push(parseInt(folios[i]));
             }
@@ -91,8 +101,10 @@ function separar_folios(folios){
 num_folios = getParameterByName('num_folios');
 //Obtenemos el array de folios de modo STRING
 folios_disponibles = getParameterByName('folios_preguntas');
+console.log(folios_disponibles);
 //Separamos lo folios del string y los volvemos un mismo arreglo
 folios_disponibles_final = folios_disponibles.split(",", num_folios);
+console.log(folios_disponibles_final);
 //Pasamos a la funcion los elemento de los folios que recibimos de URL
 separar_folios(folios_disponibles_final);
 //Solo para asegurarnos que todo haya salido correcto
@@ -125,6 +137,7 @@ $(document).ready(function(){
     }
     //Añadimos un input oculto para tener el folio donde se van a guardar
     $("form").append('<div class="input-field hide"><input type="text" name="folio" value="'+folio_use+'"></div>');
+    console.log(folios_preguntas);
     //Funcion en JQuery que manda a llamar un archivo php, le pasamos variables desde las sentencias {}
     $.get("pruebas.php", {folios: folios_preguntas},function(data){
         //Si llega a haber errores se mostrara un mensaje

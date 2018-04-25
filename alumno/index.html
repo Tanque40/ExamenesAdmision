@@ -18,46 +18,6 @@
         }
     </style>
 </head>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
-<script type="text/javascript">
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-    results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-var folio_use;
-var solicitud = [];
-$(document).ready(function(){
-    var solicitud = [];
-    folio_use = getParameterByName('folio');
-    $.get("comprobardatos.php",{folio_usado: folio_use}, function(data){
-        $("#lol").val(data.error);
-        $("#_folio").val(data.folio);
-        $("#nombre").val(data.nombre);
-        $("#apellido_paterno").val(data.apellido_p);
-        $("#apellido_materno").val(data.apellido_m);
-        $("#grupo").val(data.grupo);
-    }, "json" );
-  $("input").prop('disabled', true);
-});
-$.get("no_pregruntas_secciones.php",function(info){
-    if (info.error) {
-        alert(info.mensaje);
-        alert("Por favor recarga la página, si el problema consiste avisale a tu profesor");
-    }
-    else{
-        console.log(info[0][0]);
-        for (var i = 0; i < info.length; i++) {
-            solicitud[i] = [];
-            for (var k = 0; k < 2; k++) {
-                solicitud[i][k] = info[i][k];
-            }
-        }
-    }
-}, "json" );
-</script>
 <body style="background-color: #c9c9c9;">
     <form class="" action="" method="post" id="form">
     <div class="container">
@@ -87,7 +47,56 @@ $.get("no_pregruntas_secciones.php",function(info){
                             </div>
                         </div>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action center">
+                        <div id="waiting">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-blue">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                                <div class="spinner-layer spinner-red">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                                <div class="spinner-layer spinner-yellow">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                                <div class="spinner-layer spinner-green">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="center">Espera un momento por favor</p>
+                        </div>
                         <center>
                             <button class="btn waves-effect waves-light #e53935 red darken-1" type="submit" name="noaction" id="noaction">Este no soy yo
                                 <i class="material-icons right">sentiment_very_dissatisfied</i>
@@ -102,22 +111,183 @@ $.get("no_pregruntas_secciones.php",function(info){
         </div>
     </div>
     </form>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('ul.tabs').tabs({
-                swipeable : true
-            });
-        });
-        $('#action').click(function(){
-            var lol = solicitud.length * 2;
-            folios_preguntas = getParameterByName('folios_preguntas');
-            num_folios = getParameterByName('num_folios');
-            $('#form').attr('action', "examenfinal/index.html?folio="+folio_use+"&folios_preguntas="+folios_preguntas+"&ele="+lol+"&info="+solicitud+"&num_folios="+num_folios);
-            window.location.href = "examenfinal/index.html?folio="+folio_use+"&info="+solicitud;
-        });
-        $('#noaction').click(function(){
-            $('#form').attr('action', "../index.html");
-        });
-    </script>
 </body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../materialize/js/materialize.min.js"></script>
+<script type="text/javascript">
+//Funcion que obtiena datos desde la url
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+//Se declara para poder usarse de manera global esos folios
+var folio_use;
+var folios, inicioFolios;
+var solicitud = [];
+var idSeccion = [];
+//Ocultamos los contenidos que están dentro de las etiquetas center
+$('center').hide();
+//Primero saber si es secundaria o bachillerato
+var tipoGrado, turno;
+//para el rango de preguntas
+var inicio, fin;
+//Ya que todo está cargado
+$(document).ready(function(){
+    //Hacemos que funcione el swipeable
+    $('ul.tabs').tabs({
+        swipeable : true
+    });
+    //Obtenems la variable con el nombre folio
+    folio_use = getParameterByName('folio');
+    //Esta función manda a llamar al archivo php para que este devuelva datos sin salir de la página
+    $.get("comprobardatos.php",{folio_usado: folio_use}, function(data){
+        $("#lol").val(data.error);
+        $("#_folio").val(data.folio);
+        $("#nombre").val(data.nombre);
+        $("#apellido_paterno").val(data.apellido_p);
+        $("#apellido_materno").val(data.apellido_m);
+        $("#grupo").val(data.grupo);
+        //Vamos a evaluar el grupo para saber de que lugar es
+        grupo = parseInt(data.grupo);
+        //bachillerato
+        if(grupo < 1000){
+            //Irá en orden primero..sextos mañana y tarde
+            if (grupo >110 && grupo < 120) {
+                tipoGrado = "primero";
+                turno = "matutino"
+            }
+            else if (grupo >120 && grupo < 130) {
+                tipoGrado = "primero";
+                turno = "vespertino"
+            }
+            else if (grupo > 210 && grupo < 220) {
+                tipoGrado = "segundo";
+                turno = "matutino"
+            }
+            else if (grupo >220 && grupo < 230) {
+                tipoGrado = "segundo";
+                turno = "vespertino"
+            }
+            else if (grupo >310 && grupo < 320) {
+                tipoGrado = "tercero";
+                turno = "matutino"
+            }
+            else if (grupo >320 && grupo < 330) {
+                tipoGrado = "tercero";
+                turno = "vespertino"
+            }
+            else if (grupo >410 && grupo < 420) {
+                tipoGrado = "cuarto";
+                turno = "matutino"
+            }
+            else if (grupo > 420 && grupo < 430) {
+                tipoGrado = "cuarto";
+                turno = "vespertino"
+            }
+            else if (grupo > 510 && grupo < 520) {
+                tipoGrado = "quinto";
+                turno = "matutino"
+            }
+            else if (grupo > 520 && grupo < 530) {
+                tipoGrado = "quinto";
+                turno = "vespertino"
+            }
+            else if (grupo > 610 && grupo < 620) {
+                tipoGrado = "sexto";
+                turno = "matutino"
+            }
+            else if (grupo > 620 && grupo < 630) {
+                tipoGrado = "sexto";
+                turno = "vespertino"
+            }
+        }
+        //SECUNDARIA
+        else{
+            //Irá en orden primero..tercero mañana y tarde
+            if (grupo >1100 && grupo < 1200) {
+                tipoGrado = "primero_secu";
+                turno = "matutino"
+            }
+            else if (grupo >1200 && grupo < 1300) {
+                tipoGrado = "primero_secu";
+                turno = "vespertino"
+            }
+            else if (grupo > 2100 && grupo < 2200) {
+                tipoGrado = "segundo_secu";
+                turno = "matutino"
+            }
+            else if (grupo >2200 && grupo < 2300) {
+                tipoGrado = "segundo_secu";
+                turno = "vespertino"
+            }
+            else if (grupo >3100 && grupo < 3200) {
+                tipoGrado = "tercero_secu";
+                turno = "matutino"
+            }
+            else if (grupo >3200 && grupo < 3300) {
+                tipoGrado = "tercero_secu";
+                turno = "vespertino"
+            }
+        }
+        //Una función de tipo get para obtener el rango de preguntas de examen
+        $.post("activo.php", {turno: turno, grado: tipoGrado},function(rango){
+            //Si llega a haber errores se mostrara un mensaje
+            if(rango.error){
+                window.alert(rango.mensaje);
+                window.alert("Por favor recarga la página, si el problema continua avisale a tu profesor")
+            }
+            else {
+                //Obtendremos loa folios de las preguntas pero unicamente desde el rango marcado
+                $.get("folios.php", {first: rango.pinicio, last: rango.pfinal}, function(data){
+                    //Si llega a haber errores se mostrara un mensaje
+                    if(data.error){
+                        window.alert(data.mensaje);
+                        window.alert("Por favor recarga la página, si el problema continua avisale a tu profesor")
+                    }
+                    else {
+                        folios = data;
+                        num_folios = data.length;
+                        xp = parseInt(rango.id);
+                        for (var i = 0; i < 10; i++) {
+                            xp += 100;
+                            if(xp < rango.pfinal){
+                                idSeccion.push(xp);
+                                console.log(idSeccion);
+                            }
+                        }
+                        $.get("no_pregruntas_secciones.php",{identificador: idSeccion},function(info){
+                            if (info.error) {
+                                alert(info.mensaje);
+                                alert("Por favor recarga la página, si el problema consiste avisale a tu profesor");
+                            }
+                            else{
+                                console.log(info[0][0]);
+                                for (var i = 0; i < info.length; i++) {
+                                    solicitud[i] = [];
+                                    for (var k = 0; k < 2; k++) {
+                                        solicitud[i][k] = info[i][k];
+                                    }
+                                }
+                                $("#waiting").hide();
+                                $("center").show();
+                            }
+                        }, "json" );
+                    }
+                }, "json");
+            }
+        },"json");
+    }, "json" );
+    $("input").prop('disabled', true);
+});
+$('#action').click(function(){
+    var lol = solicitud.length * 2;
+    $('#form').attr('action', "examenfinal/index.html?folio="+folio_use+"&folios_preguntas="+folios+"&ele="+lol+"&info="+solicitud+"&num_folios="+num_folios);
+    window.location.href = "examenfinal/index.html?folio="+folio_use+"&info="+solicitud;
+});
+$('#noaction').click(function(){
+    $('#form').attr('action', "../index.html");
+});
+</script>
 </html>
