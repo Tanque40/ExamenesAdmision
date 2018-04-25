@@ -3,7 +3,7 @@ include 'conexion.php';
 if (!isset($_SESSION['user'])) {
 	header('location: index.php');
 }
-$datos = $con->query("SELECT * FROM Alumnos");
+$datos = $con->query("SELECT * FROM alumnos");
 ?>
 <!DOCTYPE html>
 <html lang="es">

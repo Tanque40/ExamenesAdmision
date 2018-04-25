@@ -2,7 +2,7 @@
 include 'conexion.php';
   $usuario = $_POST['usuario'];
   $pass = $_POST['contra'];
-  $consulta = $con->query("SELECT * FROM Administracion WHERE Usuario = '$usuario' and Password = '$pass'");
+  $consulta = $con->query("SELECT * FROM administracion WHERE Usuario = '$usuario' and Password = '$pass'");
   $num = mysqli_num_rows($consulta);
   if ($num == 1) {
     if ($var = $consulta->fetch_assoc()) {

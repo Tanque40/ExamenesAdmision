@@ -2,7 +2,7 @@
 include 'conexion.php';
 $seccion = $_POST['nseccion'];
 $npreguntas = $_POST['nuevo'];
-$nsec = "Seccion ".(string)$seccion;
+$nsec = "Seccion_".(string)$seccion;
 $q = $con->query("SELECT * FROM secciones");
 $number = mysqli_num_rows($q);
 if ($seccion > $number) {
