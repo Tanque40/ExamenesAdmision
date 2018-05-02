@@ -2,7 +2,7 @@
 	include 'plantilla.php';
 	require 'conexion.php';
 
-	$query = "SELECT * FROM Materias";
+	$query = "SELECT * FROM materias";
 	$resultado = $con->query($query);
 	$pdf = new PDF();
 	$pdf->AliasNbPages();

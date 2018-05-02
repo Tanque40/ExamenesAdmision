@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 ?>
 <?php
   $folio = $_GET['folio'];
-  $data = $con ->query("SELECT * FROM Alumnos WHERE Folio = '$folio'");
+  $data = $con ->query("SELECT * FROM alumnos WHERE Folio = '$folio'");
   $imprimir = $data->fetch_assoc();
   mysqli_query($con, "SET NAMES 'utf8'");
  ?>

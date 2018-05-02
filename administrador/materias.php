@@ -91,6 +91,40 @@ if (!isset($_SESSION['user'])) {
 										<span class="card-title center">Agregar sección</span>
 										<form class="section" action="addsection.php" method="post">
 												<div class="input-field">
+												    <select name="selgra">
+												      <option value="" disabled selected>Selecciona una opción</option>
+												      <option value="1">Matutino</option>
+												      <option value="2">Vespertino</option>
+												      <option value="3">Admision</option>
+												      <option value="4">Pruebas</option>
+												    </select>
+												    <label>Selecciona una opción</label>
+												</div>
+
+												<div class="input-field">
+													<select name="grade" id="grade">
+														<option value="" disabled selected>Selecciona el grado</option>
+														<option value="first">1° de secundaria</option>
+														<option value="second">2° de secundaria</option>
+														<option value="third">3° de secundaria</option>
+														<option value="primero">1° semestre</option>
+														<option value="segundo">2° semestre</option>
+														<option value="tercero">3° semestre</option>
+														<option value="cuarto">4° semestre</option>
+														<option value="quinto">5° semestre</option>
+														<option value="sexto">6° semestre</option>
+													</select>
+													<label>Selecciona una opción</label>
+												 </div>
+
+												<div class="input-field">
+													<input type="number" name="periodo" min="1" max="6">
+													<label for="periodo">Ingresa el periodo</label>
+												</div>
+												
+		
+
+												<div class="input-field">
 													<i class="material-icons prefix">format_list_numbered</i>
 													<input type="number" name="npreguntas" min="0" max="99">
 													<label for="npreguntas">Ingresa el número de preguntas que aparecerán en la sección</label>
@@ -169,8 +203,10 @@ if (!isset($_SESSION['user'])) {
 	});
 	$(document).ready(function(){
 	 $('ul.tabs').tabs();
+	 $('select').material_select();
  });
 
 </script>
+
 </body>
 </html>
