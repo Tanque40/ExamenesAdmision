@@ -31,7 +31,7 @@
         swal("Buen trabajo!", "Se han guardado los datos exitosamente", "success");
     </script>
     <?php
-    header("refresh: 5.0; url=calif.html");
+    header("refresh: 5.0; url=../administrador/admon.php");
      ?>
 </body>
 </html>

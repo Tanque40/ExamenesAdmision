@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 ?>
 <?php
   $folio = $_GET['folio'];
-  $data = $con ->query("SELECT * FROM Alumnos WHERE Folio = '$folio'");
+  $data = $con ->query("SELECT * FROM alumnos WHERE Folio = '$folio'");
   $imprimir = $data->fetch_assoc();
   mysqli_query($con, "SET NAMES 'utf8'");
  ?>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['user'])) {
 		  		<div class="col s12">
 						<div class="input-field">
 							<i class="material-icons prefix">search</i>
-							<input type="text" id= "buscar" class= "buscar" > 
+							<input type="text" id= "buscar" class= "buscar" >
 							<label for="buscar">Ingresa aquí tú búsqueda</label>
 						</div>
 		  			<div class="card">
@@ -98,6 +98,7 @@ if (!isset($_SESSION['user'])) {
 		    <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
 		    <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
 		    <li><a href="../calificar/calif.html"><i class="material-icons">assessment</i>Calificar</a></li>
+		    <li><a href="partial.php"><i class="material-icons">assignment_ind</i>Calificaciones P.</a></li>
 				<?php
 					$consulta = $con->query("SELECT * FROM calificacion");
 					$resultados = mysqli_num_rows($consulta);

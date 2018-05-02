@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php';
 $salida = "";
-$query = "SELECT * FROM Alumnos";
+$query = "SELECT * FROM alumnos";
 if (isset($_POST['consulta'])) {
   $q = $con ->real_escape_string($_POST['consulta']);
   $query = "SELECT * FROM alumnos WHERE Folio LIKE '%".$q."%' OR Nombre LIKE '%".$q."%' OR Apellido_P LIKE '%".$q."%' OR Apellido_M LIKE '%".$q."%'";
@@ -20,7 +20,7 @@ if ($resultado->num_rows > 0) {
                     <tbody>";
                     while ($user = $resultado->fetch_assoc()) {
                         $folio = $user['Folio'];
-                        $puntaje = $con ->query("SELECT puntuacion FROM calificacion WHERE folio_alumno = '$folio' AND puntuacion = '1'"); 
+                        $puntaje = $con ->query("SELECT puntuacion FROM calificacion WHERE folio_alumno = '$folio' AND puntuacion = '1'");
                         $punt = mysqli_num_rows($puntaje);
                         $salida.= "<tr>
                           <td>".$user['Folio']."</td>

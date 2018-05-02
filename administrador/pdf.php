@@ -3,7 +3,7 @@
 	require 'conexion.php';
 
 	$folio = $_GET['folio'];
-	$query = "SELECT * FROM Respuestas_alumno WHERE folio_alumno = $folio";
+	$query = "SELECT * FROM respuestas_alumno WHERE folio_alumno = $folio";
 	$resultado = $con->query($query);
 	$pdf = new PDF();
 	$pdf->AliasNbPages();
@@ -16,7 +16,7 @@
 	$pdf->Ln(10);
 	$pdf->Cell(40,6,'Folio de pregunta',1,0,'C',1);
 	$pdf->Cell(150,6,'Respuesta dada',1,1,'C',1);
-	
+
 
 	$pdf->SetFont('Arial','',10);
 

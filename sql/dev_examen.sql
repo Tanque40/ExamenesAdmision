@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `Administracion`
 --
 
-CREATE TABLE `Administracion` (
+CREATE TABLE `administracion` (
   `Usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Password` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `session` int(1) NOT NULL DEFAULT '0'
@@ -36,7 +36,7 @@ CREATE TABLE `Administracion` (
 -- Dumping data for table `Administracion`
 --
 
-INSERT INTO `Administracion` (`Usuario`, `Password`, `session`) VALUES
+INSERT INTO `administracion` (`Usuario`, `Password`, `session`) VALUES
 ('Administrador', 'BACPonra2018', 0),
 ('Jair', 'java', 0);
 
@@ -46,7 +46,7 @@ INSERT INTO `Administracion` (`Usuario`, `Password`, `session`) VALUES
 -- Table structure for table `Alumnos`
 --
 
-CREATE TABLE `Alumnos` (
+CREATE TABLE `alumnos` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Apellido_P` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE `Alumnos` (
 -- Dumping data for table `Alumnos`
 --
 
-INSERT INTO `Alumnos` (`Folio`, `Nombre`, `Apellido_P`, `Apellido_M`, `grupo`) VALUES
+INSERT INTO `alumnos` (`Folio`, `Nombre`, `Apellido_P`, `Apellido_M`, `grupo`) VALUES
 ('11040043', 'JUAN CARLOS', 'CRUZ', 'HERNANDEZ', '621'),
 ('11040075', 'YOSELIN NOEMI', 'TORRES', 'OLIVER', '622'),
 ('12040008', 'JOSE MANUEL', 'CRUZ', 'GIL', '612'),
@@ -735,7 +735,7 @@ INSERT INTO `calificacion` (`folio_alumno`, `id_pregunta`, `respuesta_dada`, `re
 -- Table structure for table `Direccion`
 --
 
-CREATE TABLE `Direccion` (
+CREATE TABLE `direccion` (
   `Folio` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `Calle` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Numero` varchar(6) COLLATE utf8_spanish_ci NOT NULL,
@@ -748,7 +748,7 @@ CREATE TABLE `Direccion` (
 -- Dumping data for table `Direccion`
 --
 
-INSERT INTO `Direccion` (`Folio`, `Calle`, `Numero`, `Colonia`, `Delegacion/muncipio`, `Estado`) VALUES
+INSERT INTO `direccion` (`Folio`, `Calle`, `Numero`, `Colonia`, `Delegacion/muncipio`, `Estado`) VALUES
 ('0040', 'Amapola', '415', 'Gustavo Díaz Ordaz', 'Ecatepec', 'Estado de México'),
 ('260800', 'Natal', '627', 'Lindavista', 'GAM', 'CDMX');
 
@@ -758,7 +758,7 @@ INSERT INTO `Direccion` (`Folio`, `Calle`, `Numero`, `Colonia`, `Delegacion/munc
 -- Table structure for table `Examenes`
 --
 
-CREATE TABLE `Examenes` (
+CREATE TABLE `examenes` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `Id_materia` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `Id_pregunta` int(5) NOT NULL
@@ -770,7 +770,7 @@ CREATE TABLE `Examenes` (
 -- Table structure for table `Materias`
 --
 
-CREATE TABLE `Materias` (
+CREATE TABLE `materias` (
   `Id_pregunta` int(5) NOT NULL,
   `Id_materia` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `Materia` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -786,7 +786,7 @@ CREATE TABLE `Materias` (
 -- Dumping data for table `Materias`
 --
 
-INSERT INTO `Materias` (`Id_pregunta`, `Id_materia`, `Materia`, `imagen`, `Pregunta`, `Respuesta_correcta`, `Respuesta_inc_1`, `Respuesta_inc_2`, `Respuesta_inc_3`) VALUES
+INSERT INTO `materias` (`Id_pregunta`, `Id_materia`, `Materia`, `imagen`, `Pregunta`, `Respuesta_correcta`, `Respuesta_inc_1`, `Respuesta_inc_2`, `Respuesta_inc_3`) VALUES
 (1001, '1000', 'Seccion 1', 'images/L1.png', '¿A cuál pregunta responde el texto anterior?', '¿Qué es una huella ecológica y cómo impacta en la naturaleza?', '¿Qué recursos necesitan las plantas, los animales y el hombre para vivir?', '¿Cuáles son los recursos que consume el ser humano?', '¿Cuáles son las superficies marinas y terrestres que producen los alimentos?'),
 (1002, '1000', 'Seccion 1', 'images/L1.png', 'De las siguientes opciones, ¿cuál contiene dos marcadores discursivos que ayudan a organizar la información en la introducción del texto?', 'De esta manera / al igual que', 'En palabras sencillas / con los', 'Para / que', 'A ello / y'),
 (1003, '1000', 'Seccion 1', 'images/L1.png', 'Señala en que parte del texto se desarrolla la idea de que los seres humanos necesitan del hábitat natural para poder sobrevivir', 'Introducción', 'Hipótesis', 'Problema', 'Intencion'),
@@ -827,7 +827,7 @@ INSERT INTO `Materias` (`Id_pregunta`, `Id_materia`, `Materia`, `imagen`, `Pregu
 -- Table structure for table `Respuestas_alumno`
 --
 
-CREATE TABLE `Respuestas_alumno` (
+CREATE TABLE `respuestas_alumno` (
   `folio_alumno` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `folio_pregunta` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `respuesta_letras` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
@@ -838,7 +838,7 @@ CREATE TABLE `Respuestas_alumno` (
 -- Dumping data for table `Respuestas_alumno`
 --
 
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('12040014', '1002', 'c', 'En palabras sencillas / con los'),
 ('12040014', '1003', 'c', 'Problema'),
 ('12040014', '1001', 'd', '¿Cuáles son las superficies marinas y terrestres que producen los alimentos?'),
@@ -1355,7 +1355,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('13040252', '5012', 'd', 'Nuevo'),
 ('13040252', '5014', 'c', 'Literario / poema / emocionar'),
 ('13040252', '5009', 'a', 'Encuesta');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13040252', '5003', 'a', 'Género en el cual se narran hazañas de los dioses y los héroes legendarios, valiéndose de la prosa o el verso extenso.'),
 ('13040252', '5018', 'b', '1e, 2d, 3a, 4c, 5b'),
 ('13040553', '1003', 'c', 'Introducción'),
@@ -1878,7 +1878,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('12040184', '5015', 'c', 'Argumentativo'),
 ('13040436', '1001', 'a', '¿Qué es una huella ecológica y cómo impacta en la naturaleza?'),
 ('12040184', '5004', 'c', 'Mencionar las fechas exactas y los lugares en que aconteció la historia narrada en el libro.');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13040436', '1004', 'a', 'La huella ecológica es la superficie necesaria para producir los alimentos y otras materas primarias que requerimos, así como para absorber nuestros desechos, por lo tanto, tiene un impacto importante en la naturaleza'),
 ('12040184', '5001', 'c', 'Las conjunciones'),
 ('13040436', '2003', 'c', 'Los enunciados'),
@@ -2399,7 +2399,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('14040071', '5012', 'a', 'Terminó'),
 ('14040071', '5007', 'b', 'Diario personal'),
 ('14040071', '5005', 'a', 'Argumentacion');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('14040001', '1004', 'b', 'La huella ecológica es la superficie necesaria para producir los alimentos y otras materas primarias que requerimos, así como para absorber nuestros desechos, por lo tanto, tiene un impacto importante en la naturaleza'),
 ('14040001', '1003', 'a', 'Hipótesis'),
 ('14040001', '1002', 'c', 'De esta manera / al igual que'),
@@ -2917,7 +2917,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('13040102', '5002', 'a', 'Un caballero medieval'),
 ('13040102', '5006', 'a', 'Primaria'),
 ('13040102', '5005', 'c', 'Narración');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13040102', '5017', 'd', 'Cuento'),
 ('13040102', '5013', 'a', 'Argumentativa'),
 ('13040102', '5004', 'a', 'Mencionar las fechas exactas y los lugares en que aconteció la historia narrada en el libro.'),
@@ -3427,7 +3427,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('14041435', '2004', 'a', 'c)	Un caballero medieval'),
 ('14041435', '2002', 'a', 'Tercera persona'),
 ('14041435', '2001', 'b', 'La verdadera felicidad es una vida sencilla y libre de preocupaciones');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('14041435', '3001', 'a', 'Internet se está convirtiendo en el <<medio de comunicación global>>, debido a que es una herramienta indispensable para la educación, el conocimiento y el disfrute. Sin embargo, este último uso lo puede volver negativo, puesto que se abusa de él. Como conclusión, Internet puede causar adicción, con consecuencias tales como la pérdida de una vida social activa.'),
 ('14041435', '3002', 'd', 'La adhesión del adolescente al mundo digital aparta a los jóvenes de disfrutar su entorno social inmediato.'),
 ('14041435', '4003', 'b', 'Los conciertos disminuyen el estrés'),
@@ -3938,7 +3938,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('14040145', '5005', 'a', 'Diálogo'),
 ('13040142', '5010', 'a', 'Pretende conseguir de los lectores una sensación de objetividad, de veracidad en lo que se dice. Este tipo de narrador es ajeno a los hechos, está fuera de la historia narrada y necesita tomar distancia de lo acontecido para hacer parecer que lo que relata es objetivo.'),
 ('14040145', '5004', 'b', 'Justificar el origen de las tradiciones hindúes explicadas por el poeta Valmiki Prachetasa.');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13040142', '5002', 'c', 'Un caballero medieval'),
 ('14040145', '5002', 'c', 'Un esquimal'),
 ('13040142', '5001', 'c', 'Los conectores'),
@@ -4444,7 +4444,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('14040208', '5017', 'b', 'Tesis'),
 ('14040208', '5014', 'a', 'Literario / poema / emocionar'),
 ('13048012', '1001', 'd', '¿Cuáles son los recursos que consume el ser humano?');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13048012', '1004', 'd', 'Para obtener los vegetales, la carne, así como las fibras, la madera y la energía eléctrica, necesitamos de un “pedacito” de naturaleza. Por lo tanto, se debe intentar sacar el máximo provecho al medio ambiente.'),
 ('13048012', '1003', 'b', 'Introducción'),
 ('13048012', '2002', 'c', 'Tercera persona'),
@@ -4962,7 +4962,7 @@ INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_le
 ('13040365', '5005', 'a', 'Diálogo'),
 ('13040365', '5016', 'b', 'Su intención comunicativa es producir un efecto estético y emotivo en el lector, es original, crea un mundo propio y el lenguaje que utiliza es connotativo.'),
 ('13040365', '5009', 'b', 'Encuesta');
-INSERT INTO `Respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
+INSERT INTO `respuestas_alumno` (`folio_alumno`, `folio_pregunta`, `respuesta_letras`, `Respuesta_dada`) VALUES
 ('13040365', '5010', 'a', 'Se pone de manifiesto la presencia del autor en lo narrado. Con esta forma de enunciación, se consigue atrapar con mayor fuerza la atención del receptor, aumenta su interés, pues lo que el enunciador dice tiene apariencia de algo que ha vivido, que ha experimentado de manera personal.'),
 ('13040365', '5006', 'c', 'Primaria'),
 ('14040272', '1003', 'c', 'Introducción'),
@@ -5435,7 +5435,7 @@ INSERT INTO `secciones` (`seccion`, `no_preguntas`, `last`) VALUES
 -- Table structure for table `Tutor`
 --
 
-CREATE TABLE `Tutor` (
+CREATE TABLE `tutor` (
   `Folio` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `Nombre_tutor` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `Apellido_P_tutor` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -5449,7 +5449,7 @@ CREATE TABLE `Tutor` (
 -- Dumping data for table `Tutor`
 --
 
-INSERT INTO `Tutor` (`Folio`, `Nombre_tutor`, `Apellido_P_tutor`, `Apellido_M_tutor`, `Correo`, `Telefono_casa`, `Telefono_celular`) VALUES
+INSERT INTO `tutor` (`Folio`, `Nombre_tutor`, `Apellido_P_tutor`, `Apellido_M_tutor`, `Correo`, `Telefono_casa`, `Telefono_celular`) VALUES
 ('0040', 'Alberto', 'Vitte', 'de la Rosa', 'tanque_250@hotmail.com', '55699494', '5559698752'),
 ('260800', 'Eugenia', 'Fuenlabrada', 'Velázquez', 'paulinafuenlabrada@gmail.com', '44355380', '5548066360');
 
@@ -5460,25 +5460,25 @@ INSERT INTO `Tutor` (`Folio`, `Nombre_tutor`, `Apellido_P_tutor`, `Apellido_M_tu
 --
 -- Indexes for table `Administracion`
 --
-ALTER TABLE `Administracion`
+ALTER TABLE `administracion`
   ADD PRIMARY KEY (`Usuario`);
 
 --
 -- Indexes for table `Alumnos`
 --
-ALTER TABLE `Alumnos`
+ALTER TABLE `alumnos`
   ADD PRIMARY KEY (`Folio`);
 
 --
 -- Indexes for table `Direccion`
 --
-ALTER TABLE `Direccion`
+ALTER TABLE `direccion`
   ADD PRIMARY KEY (`Folio`);
 
 --
 -- Indexes for table `Examenes`
 --
-ALTER TABLE `Examenes`
+ALTER TABLE `examenes`
   ADD PRIMARY KEY (`Folio`),
   ADD KEY `Id_materia` (`Id_materia`),
   ADD KEY `Id_pregunta` (`Id_pregunta`);
@@ -5486,14 +5486,14 @@ ALTER TABLE `Examenes`
 --
 -- Indexes for table `Materias`
 --
-ALTER TABLE `Materias`
+ALTER TABLE `materias`
   ADD PRIMARY KEY (`Id_pregunta`),
   ADD KEY `Id_materia` (`Id_materia`);
 
 --
 -- Indexes for table `Tutor`
 --
-ALTER TABLE `Tutor`
+ALTER TABLE `tutor`
   ADD PRIMARY KEY (`Folio`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

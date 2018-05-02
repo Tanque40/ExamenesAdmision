@@ -4,7 +4,7 @@ $salida = "";
 $query = "SELECT * FROM alumnos";
 if (isset($_POST['consulta'])) {
   $q = $con ->real_escape_string($_POST['consulta']);
-  $query = "SELECT * FROM Alumnos WHERE Folio LIKE '%".$q."%' OR Nombre LIKE '%".$q."%' OR Apellido_P LIKE '%".$q."%' OR Apellido_M LIKE '%".$q."%'";
+  $query = "SELECT * FROM alumnos WHERE Folio LIKE '%".$q."%' OR Nombre LIKE '%".$q."%' OR Apellido_P LIKE '%".$q."%' OR Apellido_M LIKE '%".$q."%'";
 }
 $resultado = $con->query($query);
 if ($resultado->num_rows > 0) {

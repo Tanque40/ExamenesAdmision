@@ -102,6 +102,7 @@ if (!isset($_SESSION['user'])) {
 			 <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
 			 <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
 			 <li><a disabled><i class="material-icons">assessment</i>Calificar</a></li>
+ 		    <li><a href="partial.php"><i class="material-icons">assignment_ind</i>Calificaciones P.</a></li>
 			 <li><a href="logout.php"><i class="material-icons">exit_to_app</i>Salir del sistema</a></li>
 
 		    <li><div class="divider"></div></li>

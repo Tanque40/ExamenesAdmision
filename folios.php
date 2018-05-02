@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 $array = array();
-$prueba = "SELECT Id_pregunta FROM Materias";
+$prueba = "SELECT Id_pregunta FROM materias";
     if(mysqli_multi_query($link, $prueba)){
         do{
             if ($resul = mysqli_use_result($link)) {

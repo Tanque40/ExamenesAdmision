@@ -3,7 +3,7 @@ include 'conexion.php';
 if (!isset($_SESSION['user'])) {
 	header('location: index.php');
 }
-$datos = $con->query("SELECT * FROM Alumnos");
+$datos = $con->query("SELECT * FROM alumnos");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -89,6 +89,7 @@ $datos = $con->query("SELECT * FROM Alumnos");
 		    <li><a href="preguntas.php"><i class="material-icons">assignment</i>Preguntas</a></li>
 		    <li><a href="aspirantes.php"><i class="material-icons">assignment_ind</i>Aspirantes</a></li>
 		    <li><a href="../calificar/calif.html"><i class="material-icons">assessment</i>Calificar</a></li>
+		    <li><a href="partial.php"><i class="material-icons">assignment_ind</i>Calificaciones P.</a></li>
 				<?php
 					$consulta = $con->query("SELECT * FROM calificacion");
 					$resultados = mysqli_num_rows($consulta);

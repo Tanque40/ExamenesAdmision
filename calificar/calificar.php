@@ -26,8 +26,8 @@
     <?php
     $respuestas = array();
     $respuestas_c = array();
-    $consulta_BD = "SELECT * FROM Respuestas_alumno;";
-    $consulta_BD .= "SELECT Id_pregunta, Respuesta_correcta FROM Materias";
+    $consulta_BD = "SELECT * FROM respuestas_alumno;";
+    $consulta_BD .= "SELECT Id_pregunta, Respuesta_correcta FROM materias";
     $respuestas_alunmo0_correcta1 = 0;
     if(mysqli_multi_query($link, $consulta_BD)):?>
         <?php do{ ?>
@@ -57,6 +57,15 @@
             <div class="card-content black-text">
                 <span class="card-title">Proceso de calificado (Al finalizar, dar click en el boton "Aceptar")</span>
                 <form class="" action="envio.php" method="post">
+                    <div class="input-field">
+                        <center>
+                            <a href="../index.html">
+                                <button class="btn waves-effect waves-light blue">
+                                    Aceptar<i class="material-icons right">send</i>
+                                </button>
+                            </a>
+                        </center>
+                    </div>
                 <table>
                     <thead>
                         <tr>
@@ -101,17 +110,6 @@
                         <?php endfor; ?>
                     </tbody>
                 </table>
-                <div class="card-action">
-                    <div class="input-field">
-                        <center>
-                            <a href="../index.html">
-                                <button class="btn waves-effect waves-light blue">
-                                    Aceptar<i class="material-icons right">send</i>
-                                </button>
-                            </a>
-                        </center>
-                    </div>
-                </div>
                 </form>
             </div>
         </div>

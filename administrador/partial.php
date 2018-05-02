@@ -47,35 +47,27 @@ if (!isset($_SESSION['user'])) {
 	    </div>
 	  </nav>
 
-	  	<div class="title">
-	  		<center><h1><b>Bienvenido al sistema</b></h1></center>
-	  	</div>
-
-	  	<div class="container">
-		  	<div class="row">
-		  		<div class="col s12">
-		  			<div class="card">
-		  				<div class="card-content">
-									<span class="card-title center"><b>Instructivo</b></span>
-									<div class="flow-text">
-										Dentro de esta parte te daremos una breve explicación de lo que puedes hacer en cada uno de los apartados del sistema.<br>
-										<b>Secciones: </b>Aquí podrás crear, ver, actualizar y eliminar las secciones que contendrán el examen. También podrás consultar las preguntas registradas para cada sección.<br>
-										<b>Preguntas: </b>Dentro de éste apartado podrás registrar las preguntas que aparecerán en cada sección, así como tambien podrás descargar reportes PDF de las preguntas y respuestas correctas.<br>
-										<b>Aspirantes: </b>Podrás visualizar y buscar en tiempo real a los aspirantes. También puedes descargar reportes en Excel y ver las respuestas de los alumnos en formato PDF.<br>
-										<b>Calificar: </b>Una vez realizados los examenes, podrás calificarlos de manera automatizada.<br>
-										<b>Resultados: </b>Podrás verificar los resultados y puntajes de cada alumno, así como una calificación desglosada por cada aspirante. (Esta pestaña estará desactivada hasta que sean calificados los examenes)
-									</div>
-		  				</div>
-		  			</div>
-		  		</div>
-		  	</div>
-		</div>
-		<div class="carousel">
-		    <a class="carousel-item" href="#one!"><img src="http://www.ricardosalinas.com/blog/images/Tiempo_de_educar.jpg" height="200px"></a>
-		    <a class="carousel-item" href="#two!"><img src="http://www.ricardosalinas.com/blog/images/De-Plantel-Azteca-para-el-mundo.jpg" height="200px"></a>
-		    <a class="carousel-item" href="#three!"><img src="http://www.gruposalinas.com/imagen.ashx?idgb=430&idimg=19" height="200px"></a>
-		    <a class="carousel-item" href="#four!"><img src="http://www.ricardosalinas.com/blog/images/Ricardo_Salinas_Pliego_Graduacion_PlantelAzteca.jpg" height="200px"></a>
-		  </div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col s12"><br><br>
+	                <div class="card z-depth-5">
+	                    <div class="card-content">
+	                        <span class="card-title center">Selecciona un grupo</span>
+                            <form action="obtener.php" method="get">
+                                <div class="input-field">
+                                    <input type="number" name="grupo" placeholder="Ingresa el grupo de calificacion">
+                                </div>
+                                <div class="center">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Obtener
+                                    <i class="material-icons right">send</i>
+                                  </button>
+                                </div>
+                            </form>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 
 
 		<ul id="slide-out" class="side-nav fixed">

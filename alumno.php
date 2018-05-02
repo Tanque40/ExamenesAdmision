@@ -24,7 +24,7 @@
     $verifica = $_POST['verify'];
     $folios = $_GET['folios_preguntas'];
     $x = $_GET['num_folios'];
-    $prueba = "SELECT * FROM Alumnos where '$password' = Folio";
+    $prueba = "SELECT * FROM alumnos where '$password' = Folio";
     if(mysqli_multi_query($link, $prueba)){
         if ($resul = mysqli_use_result($link)) {
             if ($fila = mysqli_fetch_row($resul)) {
